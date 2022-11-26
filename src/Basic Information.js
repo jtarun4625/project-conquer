@@ -3,7 +3,7 @@ import { db } from "./firebase";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { collection, doc, getDoc } from "firebase/firestore";
 
-function Basicinformation(props) {
+function Basicinformation() {
  const auth = getAuth();
   console.log("bbb",auth)
   const docRef = doc(db, "users", auth.currentUser.uid);
@@ -533,7 +533,7 @@ function Basicinformation(props) {
           </div>
         </div>
       </section>
-      </>
+    </>
   );
 }
 
