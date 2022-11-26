@@ -1,0 +1,111 @@
+
+import React from "react";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
+function Firebase(auth ,provider){
+  alert("test")
+  
+  if(auth.currentUser){
+    window.location.href ="/About_us";
+   console.log(auth.currentUser);
+  }
+  else{
+  signInWithPopup(auth, provider)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    // The signed-in user info.
+    const user = result.user;
+    console.log(user,token ,credential)
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  
+  });
+}
+}
+function Register() {
+  
+  const provider = new GoogleAuthProvider();
+  const auth = getAuth();
+   
+  return (
+  <>
+	<section class="dashboard">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-sm-12 tab-100">
+					<div class="dashboard-img">
+						<div class="container">
+							<div class="wrapper">
+								<div class="dashboard-inner">
+									<div class="img-1">
+										<img src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/left%20imgs/1-img.png" alt="img"/>
+									</div>
+									
+									<div class="animation-delay-75ms pop  img-4">
+										<img src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/left%20imgs/3-img.png" alt="img"/>
+									</div>
+									<div class="animation-delay-100ms pop img-5">
+										<img src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/left%20imgs/5-img.png" alt="img"/>
+									</div>
+									<div class="animation-delay-125ms pop img-6">
+										<img src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/left%20imgs/4-img.png" alt="img"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-12 tab-100 ">
+					<div class="container">
+ 
+	
+						<div id="show-login" class="from-top wrapper">
+
+							<div class="signup signup-heading code-div">
+								<h2>sign up</h2>
+								<p>See your Growth and get consulting support!</p>
+							</div>
+
+				
+							<div class="login signup-heading">
+								<h2>login</h2>
+								<p>Login to see your Growth and get consulting support!</p>
+							</div>
+							<div class="google-signup">
+								<button onClick={() => Firebase(auth,provider)}><img src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/google.png" alt="google-signup"/> Sign up with Google</button>
+							</div>
+
+					
+							
+
+						
+							<div class=" signup login-notif">
+								Already have an Account? <span class="show-hide">Sign in</span>
+							</div>
+
+	
+							<div class="login login-notif">
+								New Member? <span class="show-hide">Sign up</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+    </>
+  );
+}
+
+export default Register ;
