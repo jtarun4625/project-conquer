@@ -2,9 +2,11 @@ import Home from './Home';
 import About_Us from './About_us';
 import Header from './Component/Header';
 import Contact from './Contact';
+import Dashboard from './Dashboard';
 import Register from './Register';
 import Footer from './Component/Footer';
 import {initializeApp} from 'firebase/app';
+import Wallet from './Wallet';
 import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';  
 
 
@@ -31,6 +33,8 @@ function App() {
                  <Route exact path='/About_us' element={< About_Us />}></Route>  
                  <Route exact path='/Register' element={< Register />}></Route>  
                  <Route exact path='/Contact' element={< Contact />}></Route>  
+                 <Route exact path='/Dashboard' element={< Dashboard />}></Route>  
+                 <Route exact path='/Wallet' element={< Wallet />}></Route>  
                  
           </Routes>  
           <Footer/>

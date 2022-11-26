@@ -61,6 +61,10 @@ function Header() {
                       </li>
                       <li className="menu-item-has-children">
                         {/* <a href="#">Contact Us</a> */}
+                        <Link to="/Dashboard">Dashboard</Link>
+                      </li>
+                      <li className="menu-item-has-children">
+                        {/* <a href="#">Contact Us</a> */}
                         <Link to="/Contact">Contact Us</Link>
                       </li>
                    
