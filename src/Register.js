@@ -6,7 +6,6 @@ import {setGlobalState} from "./state/index"
 import { useNavigate } from 'react-router-dom'
 
 function Firebase(auth, provider,navigate) {
-  alert("test");
   if (auth.currentUser) {
     // window.location.href = "/userinformation";
     console.log(auth.currentUser);
@@ -33,6 +32,7 @@ function Firebase(auth, provider,navigate) {
           })
           .catch((error) => console.log(error));
         // ...
+         navigate("/userinformation", { replace: true });
       })
       .catch((error) => {
         // Handle Errors here.

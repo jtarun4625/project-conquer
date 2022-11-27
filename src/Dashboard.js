@@ -1,8 +1,45 @@
-
-import React from "react";
-
+import React, { useState } from "react";
+import { db } from "./firebase";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { useGlobalState } from "./state/index";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
+
+  
+  const [uid] = useGlobalState("uid");
+  console.log(uid)
+  console.log(uid);
+  const [email, setemail] = useState();
+  const [name, setname] = useState();
+  const [image, setimage] = useState();
+  
+    const [mobile, setmobile] = useState();
+    const [typeofland, settypeofland] = useState();
+
+    const [location, setlocation] = useState();
+  const docRef = doc(db, "users", "g1Ihk5ro2fZHiYbsCWV7WtvB0ey2");
+  getDoc(docRef)
+    .then((response) => {
+      console.log("   bbbb",response.data())
+      setemail(response.data().email);
+      setname(response.data().name);
+      setimage(response.data().image);
+      setmobile(response.data().mobile);
+      settypeofland(response.data().typeofland);
+      
+      setlocation(response.data().location);
+
+
+      
+
+
+    })
+    .catch((error) => console.log(error));
+
+
+
   return (
     <>
     {/* <section class="banner">
@@ -45,7 +82,7 @@ function Dashboard() {
       <div class="container">
         <div class="row">
           <div class="col-xl-3 col-md-12">
-            {/* <div class="user-info center">
+            <div class="user-info center">
               <div class="avt">
                 <input
                   type="file"
@@ -53,11 +90,11 @@ function Dashboard() {
                   id="imgInp"
                   required
                 />
-                <img id="blah" src="assets/images/avt/avt.png" alt="no file" />
+                <img id="blah" src={image} alt="no file" />
               </div>
-              <h6 class="name">Peterson kennady</h6>
-              <p>petersonkenn@demo.com</p>
-            </div> */}
+              <h6 class="name">{name}</h6>
+              <p>{email}</p>
+            </div>
             <ul class="menu-tab">
               <li class="active">
                 <h6 class="fs-16">
@@ -201,41 +238,36 @@ function Dashboard() {
                   <h6>Infomation</h6>
 
                   <div class="form-group d-flex s1">
-                    <input type="text" class="form-control" value="John" />
-                    <input type="text" class="form-control" value="Smith" />
+                    <input type="text" class="form-control" value={name} />
+                    <input type="text" class="form-control" value={email} />
                   </div>
                   <div class="form-group d-flex">
                     <input
-                      type="email"
+                      type="text"
                       class="form-control"
                       id="exampleInputEmail1"
-                      value="Tonynguyen@demo.com"
+                      value={mobile}
                     />
                     <div class="sl">
-                      <select
-                        class="form-control"
-                        id="exampleFormControlSelect1"
-                      >
-                        <option>+1</option>
-                        <option>+84</option>
-                        <option>+82</option>
-                        <option>+32</option>
-                      </select>
                       <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Your Phone number"
-                      />
+                      type="text"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      value={location}
+                    />
                     </div>
                   </div>
 
                   <div class="form-group d-flex">
-                    <select class="form-control" id="exampleFormControlSelect2">
-                      <option>South Korean</option>
-                      <option>Vietnamese</option>
-                      <option>South Korean</option>
-                      <option>South Korean</option>
-                    </select>
+                  
+                   <div class="sl">
+                      <input
+                      type="text"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      value={typeofland}
+                    />
+                    </div>
                     <div class="sl">
                       <select
                         class="form-control gt"

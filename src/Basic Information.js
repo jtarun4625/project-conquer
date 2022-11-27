@@ -1,19 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import { db } from "./firebase";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { collection, doc, getDoc } from "firebase/firestore";
-import {useGlobalState} from "./state/index"
-function Basicinformation() { 
-  const [uid] = useGlobalState("uid")
-  console.log(uid)
-//  const auth = getAuth();
-//   console.log("bbb",auth)
+import { collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { useGlobalState } from "./state/index";
+import { useNavigate } from "react-router-dom";
+
+function logout() {
+  const auth = getAuth();
+  auth.signOut();
+  window.location.href = "/Login";
+}
+
+function Basicinformation() {
+  const [uid] = useGlobalState("uid");
+  console.log(uid);
+  const [email, setemail] = useState();
+  const [name, setname] = useState();
+  const [image, setimage] = useState();
   const docRef = doc(db, "users", uid);
   getDoc(docRef)
     .then((response) => {
-      console.log("aaa", response.data());
+      setemail(response.data().email);
+      setname(response.data().name);
+      setimage(response.data().image);
     })
     .catch((error) => console.log(error));
+
+  const navigate = useNavigate();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const mbileInput = event.target.mobile.value; // accessing directly
+    const typeofland = event.target.typeofland.value;
+    const industrytype = event.target.industrytype.value;
+    const employecount = event.target.employecount.value;
+    const location = event.target.location.value;
+    const address = event.target.address.value;
+    console.log("aaa", mbileInput);
+
+    updateDoc(doc(db, "users", uid), {
+      mobile: mbileInput,
+      typeofland: typeofland,
+      industrytype: industrytype,
+      employecount: employecount,
+      location: location,
+      address: address,
+    })
+      .then((response) => {
+        console.log("aaa", response);
+      })
+
+      .catch((error) => console.log(error));
+    navigate("/Dashboard", { replace: true });
+  };
 
   return (
     <>
@@ -52,14 +91,10 @@ function Basicinformation() {
                     id="imgInp"
                     required
                   />
-                  <img
-                    id="blah"
-                    src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                    alt="no file"
-                  />
+                  <img id="blah" src={image} alt="no file" />
                 </div>
-                <h6 className="name">Akash Chawda</h6>
-                <p>akashchawda@demo.com</p>
+                <h6 className="name">{name}</h6>
+                <p>{email}</p>
               </div>
               <ul className="menu-tab">
                 <li className="active">
@@ -90,6 +125,7 @@ function Basicinformation() {
                 <li>
                   <h6 className="fs-16">
                     <svg
+                      onClick={() => logout()}
                       width="21"
                       height="22"
                       viewBox="0 0 21 22"
@@ -101,115 +137,7 @@ function Basicinformation() {
                         fill="#3772FF"
                       />
                     </svg>
-                    Referrals
-                  </h6>
-                </li>
-                <li>
-                  <h6 className="fs-16">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M22.7031 12C22.7031 11.0752 22.5852 10.1602 22.3522 9.27366L23.7069 8.27705L21.0776 3.72291L19.5348 4.39884C18.2158 3.08925 16.6007 2.15602 14.815 1.67166L14.6293 0H9.37059L9.18487 1.67166C7.39912 2.15602 5.78404 3.08925 4.46508 4.39884L2.92233 3.72291L0.292969 8.27705L1.64766 9.27366C1.41469 10.1602 1.29684 11.0752 1.29684 12C1.29684 12.9248 1.41473 13.8397 1.64766 14.7263L0.292969 15.7229L2.92233 20.277L4.46508 19.6011C5.78409 20.9108 7.39917 21.844 9.18487 22.3283L9.37059 24H14.6293L14.815 22.3283C16.6008 21.844 18.2159 20.9107 19.5348 19.6011L21.0776 20.277L23.7069 15.7229L22.3522 14.7263C22.5852 13.8397 22.7031 12.9248 22.7031 12ZM14.0184 21.0765L13.5271 21.1853L13.3706 22.5938H10.6293L10.4728 21.1853L9.98146 21.0765C8.1187 20.6643 6.44794 19.6989 5.14987 18.2849L4.81003 17.9147L3.51084 18.4839L2.14017 16.1098L3.28041 15.271L3.12966 14.7916C2.84662 13.8913 2.70309 12.952 2.70309 12C2.70309 11.0479 2.84662 10.1087 3.12966 9.20841L3.28041 8.72897L2.14017 7.89019L3.51084 5.51611L4.81003 6.08531L5.14987 5.71509C6.44794 4.30106 8.1187 3.33572 9.98146 2.92345L10.4728 2.8147L10.6293 1.40625H13.3706L13.5271 2.8147L14.0184 2.92345C15.8812 3.33577 17.552 4.30111 18.85 5.71509L19.1899 6.08531L20.4891 5.51611L21.8597 7.89019L20.7195 8.72897L20.8702 9.20841C21.1533 10.1087 21.2968 11.048 21.2968 12C21.2968 12.952 21.1533 13.8913 20.8702 14.7916L20.7195 15.271L21.8597 16.1098L20.4891 18.4839L19.1899 17.9147L18.85 18.2849C17.552 19.6989 15.8812 20.6643 14.0184 21.0765Z"
-                        fill="#3772FF"
-                        stroke="#3772FF"
-                        stroke-width="0.5"
-                      />
-                      <path
-                        d="M9.20821 10.3902L8.20354 9.40625L5.63184 12.0321L8.25777 14.6038L9.24168 13.5991L7.62046 12.0114L9.20821 10.3902Z"
-                        fill="#3772FF"
-                        stroke="#3772FF"
-                        stroke-width="0.5"
-                      />
-                      <path
-                        d="M14.7913 10.3902L16.379 12.0114L14.7578 13.5991L15.7417 14.6038L18.3677 12.0321L15.796 9.40625L14.7913 10.3902Z"
-                        fill="#3772FF"
-                        stroke="#3772FF"
-                        stroke-width="0.5"
-                      />
-                      <path
-                        d="M10.3169 16.6016L12.3168 7.09721L13.6936 7.3869L11.6937 16.8913L10.3169 16.6016Z"
-                        fill="#3772FF"
-                        stroke="#3772FF"
-                        stroke-width="0.5"
-                      />
-                    </svg>
-                    API keys
-                  </h6>
-                </li>
-
-                <li>
-                  <h6 className="fs-16">
-                    <svg
-                      width="24"
-                      height="20"
-                      viewBox="0 0 24 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M4.20008 0H0.600074C0.268726 0 0 0.268726 0 0.600074V4.20008C0 4.53142 0.268726 4.80015 0.600074 4.80015C0.931421 4.80015 1.19993 4.53142 1.19993 4.20008V1.20015H4.20008C4.53142 1.20015 4.79993 0.931422 4.79993 0.600074C4.79993 0.268726 4.53142 0 4.20008 0Z"
-                        fill="#3772FF"
-                      />
-                      <path
-                        d="M4.20008 17.9984H1.19993V14.9985C1.19993 14.6672 0.931421 14.3984 0.600074 14.3984C0.268726 14.3984 0 14.6672 0 14.9985V18.5985C0 18.9299 0.268726 19.1986 0.600074 19.1986H4.20008C4.53142 19.1986 4.79993 18.9299 4.79993 18.5985C4.79993 18.2672 4.53142 17.9984 4.20008 17.9984Z"
-                        fill="#3772FF"
-                      />
-                      <path
-                        d="M23.3998 0H19.7998C19.4684 0 19.1997 0.268726 19.1997 0.600074C19.1997 0.931422 19.4684 1.20015 19.7998 1.20015H22.7997V4.20008C22.7997 4.53142 23.0684 4.80015 23.3998 4.80015C23.7311 4.80015 23.9998 4.53142 23.9998 4.20008V0.600074C23.9998 0.268726 23.7311 0 23.3998 0Z"
-                        fill="#3772FF"
-                      />
-                      <path
-                        d="M23.3998 14.3984C23.0684 14.3984 22.7997 14.6672 22.7997 14.9985V17.9984H19.7998C19.4684 17.9984 19.1997 18.2672 19.1997 18.5985C19.1997 18.9299 19.4684 19.1986 19.7998 19.1986H23.3998C23.7311 19.1986 23.9998 18.9299 23.9998 18.5985V14.9985C23.9998 14.6672 23.7311 14.3984 23.3998 14.3984Z"
-                        fill="#3772FF"
-                      />
-                      <path
-                        d="M3.64988 3.60156H4.95012C5.3091 3.60156 5.6 3.87029 5.6 4.20164V15.0016C5.6 15.333 5.3091 15.6017 4.95012 15.6017H3.64988C3.2909 15.6017 3 15.333 3 15.0016V4.20164C3 3.87029 3.2909 3.60156 3.64988 3.60156Z"
-                        fill="#3772FF"
-                      />
-                      <path
-                        d="M7.90007 3.60156C7.51347 3.60156 7.2002 3.87029 7.2002 4.20164V15.0016C7.2002 15.333 7.51347 15.6017 7.90007 15.6017C8.28666 15.6017 8.6002 15.333 8.6002 15.0016V4.20164C8.6002 3.87029 8.28666 3.60156 7.90007 3.60156Z"
-                        fill="#3772FF"
-                      />
-                      <path
-                        d="M11.1501 3.60156H12.4499C12.8089 3.60156 13.1 3.87029 13.1 4.20164V15.0016C13.1 15.333 12.8089 15.6017 12.4499 15.6017H11.1501C10.7911 15.6017 10.5 15.333 10.5 15.0016V4.20164C10.5 3.87029 10.7911 3.60156 11.1501 3.60156Z"
-                        fill="#3772FF"
-                      />
-                      <path
-                        d="M15.4998 3.60156C15.1133 3.60156 14.7998 3.87029 14.7998 4.20164V15.0016C14.7998 15.333 15.1133 15.6017 15.4998 15.6017C15.8863 15.6017 16.1998 15.333 16.1998 15.0016V4.20164C16.1998 3.87029 15.8863 3.60156 15.4998 3.60156Z"
-                        fill="#3772FF"
-                      />
-                      <path
-                        d="M18.6501 3.60156H19.9499C20.3089 3.60156 20.6 3.87029 20.6 4.20164V15.0016C20.6 15.333 20.3089 15.6017 19.9499 15.6017H18.6501C18.2911 15.6017 18 15.333 18 15.0016V4.20164C18 3.87029 18.2911 3.60156 18.6501 3.60156Z"
-                        fill="#3772FF"
-                      />
-                    </svg>
-                    2FA
-                  </h6>
-                </li>
-                <li>
-                  <h6 className="fs-16">
-                    <svg
-                      width="20"
-                      height="24"
-                      viewBox="0 0 20 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M17 8.00002V7.00003C17 3.141 13.86 0 9.99999 0C6.13997 0 3 3.141 3 6.99998V7.99997C1.34602 7.99997 0 9.34598 0 11V21C0 22.654 1.34602 24 3 24H17C18.654 24 20 22.654 20 21V11C20 9.34598 18.654 8.00002 17 8.00002ZM4.99997 6.99998C4.99997 4.24298 7.24299 1.99997 9.99999 1.99997C12.757 1.99997 15 4.24298 15 6.99998V7.99997H4.99997V6.99998ZM18 21C18 21.552 17.551 22 17 22H3C2.44899 22 2.00002 21.552 2.00002 21V11C2.00002 10.448 2.44903 10 3 10H17C17.551 10 18 10.448 18 11V21Z"
-                        fill="#3772FF"
-                      />
-                      <path
-                        d="M10 11.5C8.34602 11.5 7 12.846 7 14.5C7 15.802 7.83902 16.902 9.00002 17.316V19C9.00002 19.553 9.448 20 10 20C10.552 20 11 19.553 11 19V17.316C12.161 16.902 13 15.802 13 14.5C13 12.846 11.654 11.5 10 11.5ZM10 15.5C9.44898 15.5 9.00002 15.052 9.00002 14.5C9.00002 13.948 9.44898 13.5 10 13.5C10.551 13.5 11 13.948 11 14.5C11 15.052 10.551 15.5 10 15.5Z"
-                        fill="#3772FF"
-                      />
-                    </svg>
-                    Change password
+                    Sign out
                   </h6>
                 </li>
               </ul>
@@ -217,60 +145,56 @@ function Basicinformation() {
             <div className="col-xl-9 col-md-12">
               <div className="content-tab">
                 <div className="content-inner profile">
-                  <form action="#">
+                  <form action="#" onSubmit={handleSubmit}>
                     <h4>Basic Infomation</h4>
 
                     <div className="form-group d-flex s1">
                       <input
+                        required
                         type="text"
                         className="form-control"
+                        value={name}
+                        name="name"
+                        disabled
                         placeholder="Fist Name"
                       />
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Last Name"
-                      />
-                    </div>
-                    <div className="form-group d-flex">
                       <input
                         type="email"
                         className="form-control"
                         id="exampleInputEmail1"
+                        name="email"
                         placeholder="Email Id"
+                        value={email}
+                        required
+                        disabled
                       />
-                      <div className="sl">
-                        <select
-                          className="form-control"
-                          id="exampleFormControlSelect1"
-                        >
-                          <option>+1</option>
-                          <option>+84</option>
-                          <option>+82</option>
-                          <option>+32</option>
-                        </select>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Your Phone number"
-                        />
-                      </div>
                     </div>
-
                     <div className="form-group d-flex">
-                      <select className="form-control" id="search-select">
+                      <select
+                        className="form-control"
+                        name="typeofland"
+                        id="search-select"
+                      >
                         <option value="" selected disabled hidden>
                           Choose here
                         </option>
 
-                        <option value="Type of Land">
+                        <option value="Bussiness and Factory Land">
                           Bussiness and Factory Land
                         </option>
-                        <option value="Type of Land">
+                        <option value="Agriculture">
                           Agriculture and Forest Land
                         </option>
                         <option>Choose</option>
                       </select>
+                      <div className="sl">
+                        <input
+                          type="tel"
+                          name="mobile"
+                          className="form-control"
+                          placeholder="Your Phone number"
+                        />
+                      </div>
                     </div>
 
                     <h6 className="two">Bussiness or Factory Details</h6>
@@ -279,21 +203,38 @@ function Basicinformation() {
                       <div class="dropdown-content-bond"></div>
                       <div class="dropdown-content-bond">
                         <div className="form-group d-flex s1">
-                          <input
-                            type="text"
+                          <select
                             className="form-control"
-                            placeholder="Industry Type"
-                          />
+                            name="industrytype"
+                            id="search-select"
+                          >
+                            <option value="" selected disabled hidden>
+                              Choose here
+                            </option>
+
+                            <option value="Bussiness and Factory Land">
+                              Agriculture
+                            </option>
+                            <option value="Agriculture">
+                              Basic Metal Production.
+                            </option>
+                            <option>Chemical industries.</option>
+                            <option>Construction.</option>
+                            <option>Food; drink; tobacco</option>
+                          </select>
+
                           <input
                             type="text"
                             className="form-control"
                             placeholder="Employee Count"
+                            name="employecount"
                           />
                         </div>
                         <div className="form-group d-flex s1">
                           <select
                             className="form-control"
                             id="exampleFormControlSelect1"
+                            name="noofemploye"
                           >
                             <option>1 -10</option>
                             <option>10-50</option>
@@ -304,11 +245,13 @@ function Basicinformation() {
                             type="text"
                             className="form-control"
                             placeholder="Location"
+                            name="location"
                           />
                         </div>
                         <div className="form-group d-flex s1">
                           <input
                             type="text"
+                            name="address"
                             className="form-control"
                             style={{ width: "100%" }}
                             placeholder="Address"
@@ -316,16 +259,18 @@ function Basicinformation() {
                         </div>
                       </div>
                       <div class="dropdown-content-bond">
-                        <div className="form-group d-flex s1">
+                        {/* <div className="form-group d-flex s1">
                           <input
                             type="text"
                             className="form-control"
                             placeholder="Location"
+                            name="location"
                           />
                           <input
                             type="text"
                             className="form-control"
                             placeholder="Land Size"
+                            name="landsize"
                           />
                         </div>
 
@@ -335,200 +280,19 @@ function Basicinformation() {
                             className="form-control"
                             style={{ width: "100%" }}
                             placeholder="Address"
+                            name="address"
                           />
-                        </div>
+                        </div> */}
                       </div>
                       <div class="dropdown-content-bond"></div>
                     </section>
 
-                    <button type="submit" class="btn-action">
-                      Submit Details
-                    </button>
+                    <input
+                      type="submit"
+                      class="btn-action"
+                      value="Submit Detail"
+                    />
                   </form>
-                </div>
-                <div className="content-inner referrals">
-                  <h6>Total rewards</h6>
-                  <h4>
-                    $1,056.00 <span>USD</span>
-                  </h4>
-                  <p>
-                    You're earning 20% of the trading fees your referrals pay.
-                    Learn more
-                  </p>
-                  <div className="main">
-                    <h6>Invite friends to earn 20%</h6>
-
-                    <div className="refe">
-                      <div>
-                        <p>Referral link</p>
-                        <input
-                          className="form-control"
-                          type="text"
-                          value="https://accounts.rockie.com/login"
-                        />
-                      </div>
-                      <div>
-                        <p>Referral code</p>
-                        <input
-                          className="form-control"
-                          type="text"
-                          value="N84CRDKK"
-                        />
-                        <span className="btn-action">Copied</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <a href="wallet.html" className="btn-action">
-                    My Wallet
-                  </a>
-                </div>
-                <div className="content-inner api">
-                  <h6>Enable API access on your account to generate keys.</h6>
-                  <h4>
-                    API Access is <span>Disabled</span>
-                  </h4>
-                  <p className="mail">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M20 5H4C3.44772 5 3 5.44772 3 6V18C3 18.5523 3.44772 19 4 19H20C20.5523 19 21 18.5523 21 18V6C21 5.44772 20.5523 5 20 5ZM4 3C2.34315 3 1 4.34315 1 6V18C1 19.6569 2.34315 21 4 21H20C21.6569 21 23 19.6569 23 18V6C23 4.34315 21.6569 3 20 3H4Z"
-                        fill="#23262F"
-                      />
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M5.2318 7.35984C5.58537 6.93556 6.21593 6.87824 6.64021 7.2318L11.3598 11.1648C11.7307 11.4739 12.2694 11.4739 12.6402 11.1648L17.3598 7.2318C17.7841 6.87824 18.4147 6.93556 18.7682 7.35984C19.1218 7.78412 19.0645 8.41468 18.6402 8.76825L13.9206 12.7013C12.808 13.6284 11.192 13.6284 10.0795 12.7013L5.35984 8.76825C4.93556 8.41468 4.87824 7.78412 5.2318 7.35984Z"
-                        fill="#23262F"
-                      />
-                    </svg>
-                    petersonkenn@demo.com
-                  </p>
-                  <div className="main">
-                    <h6>Enable API keys</h6>
-                    <p>
-                      Enter your password and 2FA code to Enable the API keys
-                    </p>
-
-                    <div className="refe">
-                      <div className="form-group">
-                        <p>Your Password</p>
-                        <input
-                          className="form-control"
-                          type="password"
-                          placeholder="Passworld"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <p>2FA Code</p>
-                        <input
-                          className="form-control"
-                          type="text"
-                          placeholder="2FA code"
-                        />
-                      </div>
-                    </div>
-                    <a href="#" className="btn-action">
-                      Enable API keys
-                    </a>
-                  </div>
-                </div>
-
-                <div className="content-inner api">
-                  <h4>
-                    2FA <span className="color-success">Enabled</span>
-                  </h4>
-                  <p>
-                    If you want to turn off 2FA, input your account password and
-                    the six-digit code provided by the Google Authenticator app
-                    below, then click <strong>"Disable 2FA"</strong>.
-                  </p>
-
-                  <div className="main">
-                    <h6>Disable 2FA</h6>
-                    <p>
-                      Enter your password and 2FA code to Disable the 2FA
-                      verification
-                    </p>
-
-                    <div className="refe">
-                      <div className="form-group">
-                        <p>Your Password</p>
-                        <input
-                          className="form-control"
-                          type="password"
-                          placeholder="Passworld"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <p>2FA Code</p>
-                        <input
-                          className="form-control"
-                          type="text"
-                          placeholder="2FA code"
-                        />
-                      </div>
-                    </div>
-                    <a href="#" className="btn-action">
-                      Disable 2FA verification
-                    </a>
-                  </div>
-                </div>
-                <div className="content-inner profile change-pass">
-                  <h4>Change Password</h4>
-                  <h6>New Passworld</h6>
-                  <form action="#">
-                    <div className="form-group">
-                      <div>
-                        <label>
-                          Old Passworld<span>*</span>:
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          value="123456789"
-                        />
-                      </div>
-                      <div>
-                        <label>
-                          2FA Code<span>*</span>:
-                        </label>
-                        <input type="text" className="form-control" />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div>
-                        <label>
-                          New Passworld<span>*</span>:
-                        </label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          placeholder="New Passworld"
-                        />
-                      </div>
-                      <div>
-                        <label>
-                          Confirm Passworld<span>*</span>:
-                        </label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          placeholder="Confirm Passworld"
-                        />
-                      </div>
-                    </div>
-                  </form>
-                  <button type="submit" className="btn-action">
-                    Change Passworld
-                  </button>
                 </div>
               </div>
             </div>
