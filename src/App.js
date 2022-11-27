@@ -5,6 +5,7 @@ import Contact from './Contact';
 import Dashboard from './Dashboard';
 import Register from './Register';
 import Footer from './Component/Footer';
+import React from 'react';
 
 import Wallet from './Wallet';
 import BasicInformation from './Basic Information'
@@ -12,11 +13,13 @@ import BasicInformation from './Basic Information'
 import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';  
 // import { getFirestore } from "firebase/firestore";
 import Login from './Login'
+
+
 function App() {
 
   return (
-    <>
-       <Router>  
+<>
+      <Router>  
        <Header/>
            <Routes>  
 
@@ -31,10 +34,9 @@ function App() {
                  
           </Routes>  
           <Footer/>
-       </Router>  
+      </Router>  
 
-
-    </>
+      </>
   );
 }
 

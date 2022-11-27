@@ -2,11 +2,13 @@ import React from "react";
 import { db } from "./firebase";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { collection, doc, getDoc } from "firebase/firestore";
-
-function Basicinformation() {
- const auth = getAuth();
-  console.log("bbb",auth)
-  const docRef = doc(db, "users", auth.currentUser.uid);
+import {useGlobalState} from "./state/index"
+function Basicinformation() { 
+  const [uid] = useGlobalState("uid")
+  console.log(uid)
+//  const auth = getAuth();
+//   console.log("bbb",auth)
+  const docRef = doc(db, "users", uid);
   getDoc(docRef)
     .then((response) => {
       console.log("aaa", response.data());

@@ -2,11 +2,16 @@ import React from "react";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { db } from "./firebase";
 import { doc, setDoc } from "firebase/firestore";
-function Firebase(auth, provider) {
+import {setGlobalState} from "./state/index"
+import { useNavigate } from 'react-router-dom'
+
+function Firebase(auth, provider,navigate) {
   alert("test");
   if (auth.currentUser) {
-    window.location.href = "/userinformation";
+    // window.location.href = "/userinformation";
     console.log(auth.currentUser);
+    setGlobalState("uid",auth.currentUser.uid)
+    navigate("/userinformation", { replace: true });
   } else {
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -17,7 +22,7 @@ function Firebase(auth, provider) {
         const user = result.user;
         console.log(user);
         console.log(user.displayName, user.email, user.photoURL);
-
+        setGlobalState("uid",auth.currentUser.uid)
         setDoc(doc(db, "users", auth.currentUser.uid), {
           name: user.displayName,
           email: user.email,
@@ -44,6 +49,7 @@ function Firebase(auth, provider) {
 function Register() {
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -98,7 +104,7 @@ function Register() {
                     <p>Login to see your Growth and get consulting support!</p>
                   </div>
                   <div class="google-signup">
-                    <button onClick={() => Firebase(auth, provider)}>
+                    <button onClick={() => Firebase(auth, provider,navigate)}>
                       <img
                         src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/google.png"
                         alt="google-signup"
