@@ -6923,4 +6923,11 @@ body[data-magic-cursor=hide] .mouse-cursor {
 #subs-form{
   margin-top: 0px;
 }
+.btn-primary{
+  border: none!important;
+  }
+.btn-primary:focus{
+border: none!important;
+box-shadow: none!important;
+}
 /* end modal css  */

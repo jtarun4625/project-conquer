@@ -29,9 +29,9 @@ function Wallet() {
         <div class="row">
           <div class="col-xl-3 col-md-12">
             <ul class="menu-tab">
-              <li class="active"><h6 class="fs-16">Overview</h6></li>
-              <li><h6 class="fs-16 Buy Crypto">Buy Crypto</h6></li>
-              <li><h6 class="fs-16">Sell Crypto</h6></li>
+              <li class="active"><h6 class="fs-16">USD Doller</h6></li>
+              <li><h6 class="fs-16 Buy Crypto">Carban Credit</h6></li>
+     
             </ul>
           </div>
           <div class="col-xl-9 col-md-12">
@@ -53,8 +53,8 @@ function Wallet() {
                       <p>$12,068.83</p>
                     </div>
                     <div class="right">
-                      <form action="https://surielementor.com/rockiehtml/wallet-assets.html">
-                        <div class="form-group">
+                     
+                        {/* <div class="form-group">
                           <input type="text" placeholder="Search" />
                           <select class="" aria-label="USD">
                             <option selected>USD</option>
@@ -62,11 +62,11 @@ function Wallet() {
                             <option value="2">USDT</option>
                             <option value="3">USDC</option>
                           </select>
-                        </div>
-                        <button type="submit" class="btn-action">
+                        </div> */}
+                        <button type="submit" class="btn btn-primary text-white" data-toggle="modal" href='#susbc-form'>
                           Show balance
                         </button>
-                      </form>
+        
                     </div>
                   </div>
                 </div>
@@ -484,7 +484,7 @@ function Wallet() {
                       <p>$12,068.83</p>
                     </div>
                     <div class="right">
-                      <form action="https://surielementor.com/rockiehtml/wallet-assets.html">
+                     
                         {/* <div class="form-group">
                           <input type="text" placeholder="Search" />
                           <select class="" aria-label="USD">
@@ -494,10 +494,10 @@ function Wallet() {
                             <option value="3">USDC</option>
                           </select>
                         </div> */}
-                        <button type="submit" class="btn-action">
+                        <button type="submit" class="btn btn-primary text-white" data-toggle="modal" href='#susbc-form1'>
                           Show balance
                         </button>
-                      </form>
+                
                     </div>
                   </div>
                 </div>
@@ -906,27 +906,96 @@ function Wallet() {
     </section>
 
 
+
+
+
  
-    <section class="section-sale">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-7">
-            <div class="block-text">
-              <h4 class="heading">Earn up to $25 worth of crypto</h4>
-              <p class="desc">
-                Discover how specific cryptocurrencies work — and get a bit of
-                each crypto to try out for yourself.
-              </p>
-            </div>
-          </div>
-          <div class="col-md-5">
-            <div class="button">
-              <a href="#">Create Account</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+
+    {/* start model  */}
+    <div class="modal fade" id="susbc-form">
+			<div class="modal-dialog shadow-lg p-3 mb-5 bg-white rounded">
+				<div class="modal-content sub-bg">
+					<div class="modal-header subs-header">
+						{/* <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> */}
+					
+					</div>
+                <h6 className="text-center"> Add Auction Form</h6>
+					<div class="modal-body">
+						
+					
+						<div class="row">
+							<div class="col-md-12">
+								<form id="subs-form">
+									<div class="form-group row">
+										<div class="col-md-12 col-xs-12">
+											<label for="firstName" class="label-custom">First Name </label>
+											<input type="text" class="form-control input-custom" id="firstName" required/>
+										</div>
+										<div class="col-md-12 col-xs-12" >
+											<label for="firstName" className="label-custom">Price </label>
+											<input type="text" class="form-control input-custom" id="firstName"  required/>
+										</div>
+										<div class="col-md-12 col-xs-12">
+											<label for="firstName" className="label-custom">Bid Price </label>
+											<input type="text" class="form-control input-custom" id="firstName"  required/>
+										</div>
+									</div>
+									<button type="submit" class="btn btn-primary text-white">Submit</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+  {/* end modal  */}
+
+
+
+   
+    
+		
+    {/*2 start model  */}
+    <div class="modal fade" id="susbc-form1">
+			<div class="modal-dialog shadow-lg p-3 mb-5 bg-white rounded">
+				<div class="modal-content sub-bg">
+					<div class="modal-header subs-header">
+						{/* <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> */}
+					
+					</div>
+                <h6 className="text-center"> Add Auction Form</h6>
+					<div class="modal-body">
+						
+					
+						<div class="row">
+							<div class="col-md-12">
+								<form id="subs-form">
+									<div class="form-group row">
+										<div class="col-md-12 col-xs-12">
+											<label for="firstName" class="label-custom">First Name </label>
+											<input type="text" class="form-control input-custom" id="firstName" required/>
+										</div>
+										<div class="col-md-12 col-xs-12" >
+											<label for="firstName" className="label-custom">Price </label>
+											<input type="text" class="form-control input-custom" id="firstName"  required/>
+										</div>
+										<div class="col-md-12 col-xs-12">
+											<label for="firstName" className="label-custom">Bid Price </label>
+											<input type="text" class="form-control input-custom" id="firstName"  required/>
+										</div>
+									</div>
+									<button type="submit" class="btn btn-primary text-white">Submit</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+  {/*2 end modal  */}
+
     </>
   );
 }

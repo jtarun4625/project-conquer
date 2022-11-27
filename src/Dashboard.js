@@ -1,8 +1,24 @@
 
 import React from "react";
+import { useState } from "react";
+import Table from "./Component/Table";
+
+  function Dashboard(){
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [mobileNumber, setMobileNumber] = useState("");
 
 
-function Dashboard() {
+
+    let handleSubmit =  () => {
+
+let data1 ={
+"name":name,
+"email":email,
+"mobile":mobileNumber
+};
+console.log(data1)
+    };
   return (
     <>
     {/* <section class="banner">
@@ -190,27 +206,80 @@ function Dashboard() {
                   Auction Manage
                 </h6>
               </li>
+
+              <li>
+                <h6 class="fs-16">
+                  <svg
+                    width="24"
+                    height="20"
+                    viewBox="0 0 24 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M4.20008 0H0.600074C0.268726 0 0 0.268726 0 0.600074V4.20008C0 4.53142 0.268726 4.80015 0.600074 4.80015C0.931421 4.80015 1.19993 4.53142 1.19993 4.20008V1.20015H4.20008C4.53142 1.20015 4.79993 0.931422 4.79993 0.600074C4.79993 0.268726 4.53142 0 4.20008 0Z"
+                      fill="#3772FF"
+                    />
+                    <path
+                      d="M4.20008 17.9984H1.19993V14.9985C1.19993 14.6672 0.931421 14.3984 0.600074 14.3984C0.268726 14.3984 0 14.6672 0 14.9985V18.5985C0 18.9299 0.268726 19.1986 0.600074 19.1986H4.20008C4.53142 19.1986 4.79993 18.9299 4.79993 18.5985C4.79993 18.2672 4.53142 17.9984 4.20008 17.9984Z"
+                      fill="#3772FF"
+                    />
+                    <path
+                      d="M23.3998 0H19.7998C19.4684 0 19.1997 0.268726 19.1997 0.600074C19.1997 0.931422 19.4684 1.20015 19.7998 1.20015H22.7997V4.20008C22.7997 4.53142 23.0684 4.80015 23.3998 4.80015C23.7311 4.80015 23.9998 4.53142 23.9998 4.20008V0.600074C23.9998 0.268726 23.7311 0 23.3998 0Z"
+                      fill="#3772FF"
+                    />
+                    <path
+                      d="M23.3998 14.3984C23.0684 14.3984 22.7997 14.6672 22.7997 14.9985V17.9984H19.7998C19.4684 17.9984 19.1997 18.2672 19.1997 18.5985C19.1997 18.9299 19.4684 19.1986 19.7998 19.1986H23.3998C23.7311 19.1986 23.9998 18.9299 23.9998 18.5985V14.9985C23.9998 14.6672 23.7311 14.3984 23.3998 14.3984Z"
+                      fill="#3772FF"
+                    />
+                    <path
+                      d="M3.64988 3.60156H4.95012C5.3091 3.60156 5.6 3.87029 5.6 4.20164V15.0016C5.6 15.333 5.3091 15.6017 4.95012 15.6017H3.64988C3.2909 15.6017 3 15.333 3 15.0016V4.20164C3 3.87029 3.2909 3.60156 3.64988 3.60156Z"
+                      fill="#3772FF"
+                    />
+                    <path
+                      d="M7.90007 3.60156C7.51347 3.60156 7.2002 3.87029 7.2002 4.20164V15.0016C7.2002 15.333 7.51347 15.6017 7.90007 15.6017C8.28666 15.6017 8.6002 15.333 8.6002 15.0016V4.20164C8.6002 3.87029 8.28666 3.60156 7.90007 3.60156Z"
+                      fill="#3772FF"
+                    />
+                    <path
+                      d="M11.1501 3.60156H12.4499C12.8089 3.60156 13.1 3.87029 13.1 4.20164V15.0016C13.1 15.333 12.8089 15.6017 12.4499 15.6017H11.1501C10.7911 15.6017 10.5 15.333 10.5 15.0016V4.20164C10.5 3.87029 10.7911 3.60156 11.1501 3.60156Z"
+                      fill="#3772FF"
+                    />
+                    <path
+                      d="M15.4998 3.60156C15.1133 3.60156 14.7998 3.87029 14.7998 4.20164V15.0016C14.7998 15.333 15.1133 15.6017 15.4998 15.6017C15.8863 15.6017 16.1998 15.333 16.1998 15.0016V4.20164C16.1998 3.87029 15.8863 3.60156 15.4998 3.60156Z"
+                      fill="#3772FF"
+                    />
+                    <path
+                      d="M18.6501 3.60156H19.9499C20.3089 3.60156 20.6 3.87029 20.6 4.20164V15.0016C20.6 15.333 20.3089 15.6017 19.9499 15.6017H18.6501C18.2911 15.6017 18 15.333 18 15.0016V4.20164C18 3.87029 18.2911 3.60156 18.6501 3.60156Z"
+                      fill="#3772FF"
+                    />
+                  </svg>
+
+                   OnGoing Bid
+                </h6>
+              </li>
+
+
              
             </ul>
           </div>
           <div class="col-xl-9 col-md-12">
             <div class="content-tab">
               <div class="content-inner profile">
-                <form action="#">
+                <form  onSubmit={handleSubmit}>
                   <h4>User Profile</h4>
                   <h6>Infomation</h6>
 
                   <div class="form-group d-flex s1">
-                    <input type="text" class="form-control" value="John" />
-                    <input type="text" class="form-control" value="Smith" />
+                    <input type="text" class="form-control" value={name} onChange={(e) => setName(e.target.value)} placeholder ="Enter Name"/>
+                    <input type="email" class="form-control"  value={email}  onChange={(e) => setEmail(e.target.value)} placeholder ="Enter Email"/>
                   </div>
                   <div class="form-group d-flex">
                     <input
-                      type="email"
+                      type="text"
                       class="form-control"
                       id="exampleInputEmail1"
-                      value="Tonynguyen@demo.com"
-                    />
+                      value={mobileNumber}
+                      onChange={(e) => setMobileNumber(e.target.value)} placeholder="Enter Mobile No."/>
                     <div class="sl">
                       <select
                         class="form-control"
@@ -356,7 +425,7 @@ function Dashboard() {
 
                 {/* <a href="wallet.html" class="btn-action">My Wallet</a> */}
               </div>
-
+{/* start wallet table  */}
               <div class="content-inner api">
           
               
@@ -381,7 +450,7 @@ function Dashboard() {
                  <div class="card card-custom" >
                  <img class="card-img-top card-img-top1" src="https://cdn-icons-png.flaticon.com/512/747/747661.png" alt="Card image cap"/>
                 <div class="card-body">
-                    <h6 class="card-title ">Bidding</h6>
+                    <h6 class="card-title ">Viewding</h6>
                     <h6 class="price ">USD 53,260.20</h6>
                     {/* <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> */}
                     {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
@@ -627,214 +696,228 @@ function Dashboard() {
                 </div>
               </div>
 
+              {/* end wallet table  */}
+
+ {/*end Aution Manage table  */}
               <div class="content-inner profile change-pass">
                 
-
-              <div class="coin-list-wallet">
-                  <h6 class="heading">Select Crypto</h6>
-                  <table class="table">
+              <table class="table">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
                         <th class="left" scope="col">Name</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">24%</th>
-                        <th scope="col">24%</th>
-                        <th scope="col">24%</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">End Date</th>
+                        <th scope="col">CC</th>
+                        <th scope="col">Staring Bid</th>
+                        <th scope="col">Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                  
-                    
-                    
-                     
                     <tr>
                         <td class="number">
-                          <span>10</span>
+                          <span>1</span>
                         </td>
                         <td class="asset">
                           <p>
-                            <span class="boild">XRP</span>
+                            <span class="boild">USDT</span>
                             <span class="unit">Tether USD</span>
                           </p>
                         </td>
 
                         <td>
-                          <span class="boild">$2,605.95</span>
+                          <span class="boild">04-Jan-2020</span>
                         </td>
-
-                        <td class="color-success">
-                          <span class="boild">+6.04%</span>
-                        </td>
-                        <td class="color-success">
-                          <span class="boild">+6.04%</span>
+                        <td>
+                          <span class="boild">24-Jan-2020</span>
                         </td>
                         <td class="color-success">
-                          <span class="boild">+6.04%</span>
+                          <span class="boild">100</span>
+                        </td>
+                        <td class="color-success">
+                          <span class="boild">10000</span>
+                        </td>
+                        <td class="color-success">
+                         <button className="btn btn-primary text-white">View</button>
                         </td>
                       </tr>
                       <tr>
                         <td class="number">
-                          <span>10</span>
+                          <span>1</span>
                         </td>
                         <td class="asset">
                           <p>
-                            <span class="boild">XRP</span>
+                            <span class="boild">USDT</span>
                             <span class="unit">Tether USD</span>
                           </p>
                         </td>
 
                         <td>
-                          <span class="boild">$2,605.95</span>
+                          <span class="boild">04-Jan-2020</span>
                         </td>
-
-                        <td class="color-success">
-                          <span class="boild">+6.04%</span>
-                        </td>
-                        <td class="color-success">
-                          <span class="boild">+6.04%</span>
+                        <td>
+                          <span class="boild">24-Jan-2020</span>
                         </td>
                         <td class="color-success">
-                          <span class="boild">+6.04%</span>
+                          <span class="boild">100</span>
+                        </td>
+                        <td class="color-success">
+                          <span class="boild">10000</span>
+                        </td>
+                        <td class="color-success">
+                         <button className="btn btn-primary text-white">View</button>
                         </td>
                       </tr>
                       <tr>
                         <td class="number">
-                          <span>10</span>
+                          <span>1</span>
                         </td>
                         <td class="asset">
                           <p>
-                            <span class="boild">XRP</span>
+                            <span class="boild">USDT</span>
                             <span class="unit">Tether USD</span>
                           </p>
                         </td>
 
                         <td>
-                          <span class="boild">$2,605.95</span>
+                          <span class="boild">04-Jan-2020</span>
                         </td>
-
-                        <td class="color-success">
-                          <span class="boild">+6.04%</span>
-                        </td>
-                        <td class="color-success">
-                          <span class="boild">+6.04%</span>
+                        <td>
+                          <span class="boild">24-Jan-2020</span>
                         </td>
                         <td class="color-success">
-                          <span class="boild">+6.04%</span>
+                          <span class="boild">100</span>
+                        </td>
+                        <td class="color-success">
+                          <span class="boild">10000</span>
+                        </td>
+                        <td class="color-success">
+                         <button className="btn btn-primary text-white">View</button>
                         </td>
                       </tr>
                       <tr>
                         <td class="number">
-                          <span>10</span>
+                          <span>1</span>
                         </td>
                         <td class="asset">
                           <p>
-                            <span class="boild">XRP</span>
+                            <span class="boild">USDT</span>
                             <span class="unit">Tether USD</span>
                           </p>
                         </td>
 
                         <td>
-                          <span class="boild">$2,605.95</span>
+                          <span class="boild">04-Jan-2020</span>
                         </td>
-
-                        <td class="color-success">
-                          <span class="boild">+6.04%</span>
-                        </td>
-                        <td class="color-success">
-                          <span class="boild">+6.04%</span>
+                        <td>
+                          <span class="boild">24-Jan-2020</span>
                         </td>
                         <td class="color-success">
-                          <span class="boild">+6.04%</span>
+                          <span class="boild">100</span>
+                        </td>
+                        <td class="color-success">
+                          <span class="boild">10000</span>
+                        </td>
+                        <td class="color-success">
+                         <button className="btn btn-primary text-white">View</button>
                         </td>
                       </tr>
                       <tr>
                         <td class="number">
-                          <span>10</span>
+                          <span>1</span>
                         </td>
                         <td class="asset">
                           <p>
-                            <span class="boild">XRP</span>
+                            <span class="boild">USDT</span>
                             <span class="unit">Tether USD</span>
                           </p>
                         </td>
 
                         <td>
-                          <span class="boild">$2,605.95</span>
+                          <span class="boild">04-Jan-2020</span>
                         </td>
-
-                        <td class="color-success">
-                          <span class="boild">+6.04%</span>
-                        </td>
-                        <td class="color-success">
-                          <span class="boild">+6.04%</span>
-                        </td>
-                        <td class="color-success">
-                          <span class="boild">+6.04%</span>
-                        </td>
-                      </tr>
-                   
-                      <tr>
-                        <td class="number">
-                          <span>10</span>
-                        </td>
-                        <td class="asset">
-                          <p>
-                            <span class="boild">XRP</span>
-                            <span class="unit">Tether USD</span>
-                          </p>
-                        </td>
-
                         <td>
-                          <span class="boild">$2,605.95</span>
-                        </td>
-
-                        <td class="color-success">
-                          <span class="boild">+6.04%</span>
+                          <span class="boild">24-Jan-2020</span>
                         </td>
                         <td class="color-success">
-                          <span class="boild">+6.04%</span>
+                          <span class="boild">100</span>
                         </td>
                         <td class="color-success">
-                          <span class="boild">+6.04%</span>
+                          <span class="boild">10000</span>
+                        </td>
+                        <td class="color-success">
+                         <button className="btn btn-primary text-white">View</button>
                         </td>
                       </tr>
                       <tr>
                         <td class="number">
-                          <span>10</span>
+                          <span>1</span>
                         </td>
                         <td class="asset">
                           <p>
-                            <span class="boild">XRP</span>
+                            <span class="boild">USDT</span>
                             <span class="unit">Tether USD</span>
                           </p>
                         </td>
 
                         <td>
-                          <span class="boild">$2,605.95</span>
+                          <span class="boild">04-Jan-2020</span>
                         </td>
-
-                        <td class="color-success">
-                          <span class="boild">+6.04%</span>
-                        </td>
-                        <td class="color-success">
-                          <span class="boild">+6.04%</span>
+                        <td>
+                          <span class="boild">24-Jan-2020</span>
                         </td>
                         <td class="color-success">
-                          <span class="boild">+6.04%</span>
+                          <span class="boild">100</span>
+                        </td>
+                        <td class="color-success">
+                          <span class="boild">10000</span>
+                        </td>
+                        <td class="color-success">
+                         <button className="btn btn-primary text-white">View</button>
                         </td>
                       </tr>
+                      <tr>
+                        <td class="number">
+                          <span>1</span>
+                        </td>
+                        <td class="asset">
+                          <p>
+                            <span class="boild">USDT</span>
+                            <span class="unit">Tether USD</span>
+                          </p>
+                        </td>
+
+                        <td>
+                          <span class="boild">04-Jan-2020</span>
+                        </td>
+                        <td>
+                          <span class="boild">24-Jan-2020</span>
+                        </td>
+                        <td class="color-success">
+                          <span class="boild">100</span>
+                        </td>
+                        <td class="color-success">
+                          <span class="boild">10000</span>
+                        </td>
+                        <td class="color-success">
+                         <button className="btn btn-primary text-white">View</button>
+                        </td>
+                      </tr>
+                      
                     </tbody>
                   </table>
-                </div>
-
-
-                {/* <a href="" class="btn-action">Add More</a> */}
-                {/* <button type="button" class="btn btn-primary btn-action" data-toggle="modal" data-target="#exampleModal">
-                Add More</button> */}
+   {/*end Aution Manage table  */}
 
 <a class="btn btn-primary text-white" data-toggle="modal" href='#susbc-form'>Add More</a>
              
+              </div>
+              <div className="content-inner Onging Bid">
+                 <Table table_data={{"heading":"Table Heading","keys":["SNo.","Start Data","End Date", "CC","Starting Bid","Actions"], "data":[
+            { name: "Anom", age: 19, gender: "Male" },
+            { name: "Megha", age: 19, gender: "Female" },
+            { name: "Subham", age: 25, gender: "Male"},
+          ]}}/>
+
               </div>
             </div>
           </div>
@@ -863,12 +946,20 @@ function Dashboard() {
 											<label for="firstName" class="label-custom">First Name </label>
 											<input type="text" class="form-control input-custom" id="firstName" required/>
 										</div>
+                    <div class="col-md-12 col-xs-12">
+											<label for="firstName" class="label-custom">Start Date </label>
+											<input type="date" class="form-control input-custom" id="firstName" required/>
+										</div>
+                    <div class="col-md-12 col-xs-12">
+											<label for="firstName" class="label-custom">End Date </label>
+											<input type="date" class="form-control input-custom" id="firstName" required/>
+										</div>
 										<div class="col-md-12 col-xs-12" >
-											<label for="firstName" className="label-custom">Price </label>
-											<input type="text" class="form-control input-custom" id="firstName"  required/>
+											<label for="firstName" className="label-custom">Carban Credits </label>
+											<input type="number" class="form-control input-custom" id="firstName"  required/>
 										</div>
 										<div class="col-md-12 col-xs-12">
-											<label for="firstName" className="label-custom">Bid Price </label>
+											<label for="firstName" className="label-custom">Staring Bid </label>
 											<input type="text" class="form-control input-custom" id="firstName"  required/>
 										</div>
 									</div>
@@ -880,29 +971,12 @@ function Dashboard() {
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="susbc-form-thank">
-			<div class="modal-dialog">
-				<div class="modal-content sub-bg shadow-lg">
-					<div class="modal-header subs-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						
-					</div>
-					<div class="modal-body">
-						<div class="text-center">
-							<img src="http://pluspng.com/img-png/national-geographic-logo-vector-png-national-geographic-kids-logo-vector-300.png" alt=""/>
-						</div>
-						<div class="heading-text text-center">
-							<h4>Thank you For Subscribe</h4>
-						</div>
-						
-					</div>
-				</div>
-			</div>
-		</div>
+
   {/* end modal  */}
 
     </>
   );
 }
+
 
 export default Dashboard;
