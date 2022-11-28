@@ -100,7 +100,7 @@ h5,
 .h5,
 h6,
 .h6 {
-  font-family: "DM Sans";
+  /* font-family: "DM Sans"; */
   font-style: normal;
   font-weight: 700;
   line-height: 1.2;

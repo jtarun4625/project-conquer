@@ -2,14 +2,14 @@ import React from "react";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { db } from "./firebase";
 import { doc, setDoc } from "firebase/firestore";
-import {setGlobalState} from "./state/index"
+import { setGlobalState } from "./state/index"
 import { useNavigate } from 'react-router-dom'
 
-function Firebase(auth, provider,navigate) {
+function Firebase(auth, provider, navigate) {
   if (auth.currentUser) {
     // window.location.href = "/userinformation";
     console.log(auth.currentUser);
-    setGlobalState("uid",auth.currentUser.uid)
+    setGlobalState("uid", auth.currentUser.uid)
     navigate("/userinformation", { replace: true });
   } else {
     signInWithPopup(auth, provider)
@@ -21,18 +21,18 @@ function Firebase(auth, provider,navigate) {
         const user = result.user;
         console.log(user);
         console.log(user.displayName, user.email, user.photoURL);
-        setGlobalState("uid",auth.currentUser.uid)
+        setGlobalState("uid", auth.currentUser.uid)
         setDoc(doc(db, "users", auth.currentUser.uid), {
-          name: user.displayName,
-          email: user.email,
-          image: user.photoURL,
+          Name: user.displayName,
+          Email: user.email,
+          Image: user.photoURL,
         })
           .then((response) => {
             console.log("aaa", response);
           })
           .catch((error) => console.log(error));
         // ...
-         navigate("/userinformation", { replace: true });
+        navigate("/userinformation", { replace: true });
       })
       .catch((error) => {
         // Handle Errors here.
@@ -104,7 +104,7 @@ function Register() {
                     <p>Login to see your Growth and get consulting support!</p>
                   </div>
                   <div class="google-signup">
-                    <button onClick={() => Firebase(auth, provider,navigate)}>
+                    <button onClick={() => Firebase(auth, provider, navigate)}>
                       <img
                         src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/google.png"
                         alt="google-signup"
