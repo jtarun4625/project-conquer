@@ -3,7 +3,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { db } from "./firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { setGlobalState } from "./state/index"
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Firebase(auth, provider, navigate) {
   if (auth.currentUser) {
@@ -53,9 +53,14 @@ function Register() {
 
   return (
     <>
+    <br></br>
       <section class="dashboard">
         <div class="container">
           <div class="row">
+
+          <br></br>
+          <br></br>
+
             <div class="col-md-6 col-sm-12 tab-100">
               <div class="dashboard-img">
                 <div class="container">
@@ -63,29 +68,12 @@ function Register() {
                     <div class="dashboard-inner">
                       <div class="img-1">
                         <img
-                          src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/left%20imgs/1-img.png"
+                          src="https://img.freepik.com/free-vector/people-using-mobile-bank-remittance-money_74855-6617.jpg?w=740&t=st=1669638372~exp=1669638972~hmac=7d13d2caeff19fcba9b9689a387cd2f8194820c155f3e35139ebc90759d19f16" className="img-fluid"
                           alt="img"
                         />
                       </div>
 
-                      <div class="animation-delay-75ms pop  img-4">
-                        <img
-                          src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/left%20imgs/3-img.png"
-                          alt="img"
-                        />
-                      </div>
-                      <div class="animation-delay-100ms pop img-5">
-                        <img
-                          src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/left%20imgs/5-img.png"
-                          alt="img"
-                        />
-                      </div>
-                      <div class="animation-delay-125ms pop img-6">
-                        <img
-                          src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/left%20imgs/4-img.png"
-                          alt="img"
-                        />
-                      </div>
+                      
                     </div>
                   </div>
                 </div>
@@ -115,7 +103,7 @@ function Register() {
 
                   <div class=" signup login-notif">
                     Already have an Account?{" "}
-                    <span class="show-hide">Sign in</span>
+                    <span class="show-hide"><Link to="/Login">Sign in</Link></span>
                   </div>
 
                   <div class="login login-notif">
@@ -127,6 +115,8 @@ function Register() {
           </div>
         </div>
       </section>
+      <br></br>
+      <br></br>
     </>
   );
 }

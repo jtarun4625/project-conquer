@@ -3,7 +3,8 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { db } from "./firebase";
 import { doc, setDoc } from "firebase/firestore";
 import {setGlobalState} from "./state/index"
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
 
 function Firebase(auth, provider,navigate) {
   if (auth.currentUser) {
@@ -52,9 +53,13 @@ function Register() {
 
   return (
     <>
-      <section class="dashboard">
+           <section class="dashboard">
         <div class="container">
           <div class="row">
+
+          <br></br>
+          <br></br>
+
             <div class="col-md-6 col-sm-12 tab-100">
               <div class="dashboard-img">
                 <div class="container">
@@ -62,29 +67,12 @@ function Register() {
                     <div class="dashboard-inner">
                       <div class="img-1">
                         <img
-                          src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/left%20imgs/1-img.png"
+                          src="https://img.freepik.com/free-vector/tablet-login-concept-illustration_114360-7963.jpg?w=740&t=st=1669638977~exp=1669639577~hmac=f78f0d282bb61e68af428c4b75e2e91fd0a909c19c285f068c4669e0aa9527f4" className="img-fluid"
                           alt="img"
                         />
                       </div>
 
-                      <div class="animation-delay-75ms pop  img-4">
-                        <img
-                          src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/left%20imgs/3-img.png"
-                          alt="img"
-                        />
-                      </div>
-                      <div class="animation-delay-100ms pop img-5">
-                        <img
-                          src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/left%20imgs/5-img.png"
-                          alt="img"
-                        />
-                      </div>
-                      <div class="animation-delay-125ms pop img-6">
-                        <img
-                          src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/left%20imgs/4-img.png"
-                          alt="img"
-                        />
-                      </div>
+                      
                     </div>
                   </div>
                 </div>
@@ -103,16 +91,19 @@ function Register() {
                     <p>Login to see your Growth and get consulting support!</p>
                   </div>
                   <div class="google-signup">
-                    <button onClick={() => Firebase(auth, provider,navigate)}>
+                    <button onClick={() => Firebase(auth, provider, navigate)}>
                       <img
                         src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/google.png"
                         alt="google-signup"
                       />{" "}
-                      Login with Google
+                      Sign up with Google
                     </button>
                   </div>
 
-                 
+                  <div class=" signup login-notif">
+                    Already have an Account?{" "}
+                    <span class="show-hide"><Link to="/Register">Sign Up</Link></span>
+                  </div>
 
                   <div class="login login-notif">
                     New Member? <span class="show-hide">Sign up</span>
@@ -123,6 +114,7 @@ function Register() {
           </div>
         </div>
       </section>
+      <br></br>
     </>
   );
 }

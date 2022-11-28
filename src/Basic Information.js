@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { db } from "./firebase";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useGlobalState } from "./state/index";
 import { useNavigate } from "react-router-dom";
-import swal from 'sweetalert';
+import swal from "sweetalert";
 
 function Basicinformation() {
   const [uid] = useGlobalState("uid");
@@ -12,7 +12,6 @@ function Basicinformation() {
   const [email, setemail] = useState();
   const [name, setname] = useState();
   const [image, setimage] = useState();
-
 
   const docRef = doc(db, "users", uid);
   getDoc(docRef)
@@ -25,32 +24,26 @@ function Basicinformation() {
 
   const navigate = useNavigate();
 
+  const logout = () => {
+    swal({
+      title: "You are Logout?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        const auth = getAuth();
+        auth.signOut();
+        navigate("/Login", { replace: true });
 
-const logout =()=> {
-swal({
-  title: "You are Logout?",
-  icon: "warning",
-  buttons: true,
-  dangerMode: true,
-})
-.then((willDelete) => {
-  if (willDelete) {
-      const auth = getAuth();
-  auth.signOut();
-  navigate("/Login", { replace: true });
-
-    swal("You are Logout", {
-      icon: "success",
-      
+        swal("You are Logout", {
+          icon: "success",
+        });
+      } else {
+        swal("Logout Cancel!");
+      }
     });
-  } else {
-    swal("Logout Cancel!");
-  }
-});
-
-
-}
-
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -70,7 +63,7 @@ swal({
       EmployeeCount: employecount,
       Location: location,
       Address: address,
-      Currency: currency
+      Currency: currency,
     })
       .then((response) => {
         console.log("aaa", response);
@@ -148,10 +141,9 @@ swal({
                     Basic Information
                   </h6>
                 </li>
-                <li  onClick={() => logout()}>
+                <li onClick={() => logout()}>
                   <h6 className="fs-16">
                     <svg
-                     
                       width="21"
                       height="22"
                       viewBox="0 0 21 22"
@@ -223,8 +215,6 @@ swal({
                       </div>
                     </div>
 
-
-
                     <div className="form-group d-flex">
                       <select name="currency">
                         <option>Select currency</option>
@@ -248,10 +238,14 @@ swal({
                         <option value="BTN">BTN - Bhutanese Ngultrum</option>
                         <option value="BTC">BTC - Bitcoin</option>
                         <option value="BOB">BOB - Bolivian Boliviano</option>
-                        <option value="BAM">BAM - Bosnia-Herzegovina Convertible Mark</option>
+                        <option value="BAM">
+                          BAM - Bosnia-Herzegovina Convertible Mark
+                        </option>
                         <option value="BWP">BWP - Botswanan Pula</option>
                         <option value="BRL">BRL - Brazilian Real</option>
-                        <option value="GBP">GBP - British Pound Sterling</option>
+                        <option value="GBP">
+                          GBP - British Pound Sterling
+                        </option>
                         <option value="BND">BND - Brunei Dollar</option>
                         <option value="BGN">BGN - Bulgarian Lev</option>
                         <option value="BIF">BIF - Burundian Franc</option>
@@ -269,7 +263,9 @@ swal({
                         <option value="CDF">CDF - Congolese Franc</option>
                         <option value="CRC">CRC - Costa Rican ColÃ³n</option>
                         <option value="HRK">HRK - Croatian Kuna</option>
-                        <option value="CUC">CUC - Cuban Convertible Peso</option>
+                        <option value="CUC">
+                          CUC - Cuban Convertible Peso
+                        </option>
                         <option value="CZK">CZK - Czech Republic Koruna</option>
                         <option value="DKK">DKK - Danish Krone</option>
                         <option value="DJF">DJF - Djiboutian Franc</option>
@@ -280,7 +276,9 @@ swal({
                         <option value="EEK">EEK - Estonian Kroon</option>
                         <option value="ETB">ETB - Ethiopian Birr</option>
                         <option value="EUR">EUR - Euro</option>
-                        <option value="FKP">FKP - Falkland Islands Pound</option>
+                        <option value="FKP">
+                          FKP - Falkland Islands Pound
+                        </option>
                         <option value="FJD">FJD - Fijian Dollar</option>
                         <option value="GMD">GMD - Gambian Dalasi</option>
                         <option value="GEL">GEL - Georgian Lari</option>
@@ -332,7 +330,9 @@ swal({
                         <option value="MMK">MMK - Myanmar Kyat</option>
                         <option value="NAD">NAD - Namibian Dollar</option>
                         <option value="NPR">NPR - Nepalese Rupee</option>
-                        <option value="ANG">ANG - Netherlands Antillean Guilder</option>
+                        <option value="ANG">
+                          ANG - Netherlands Antillean Guilder
+                        </option>
                         <option value="TWD">TWD - New Taiwan Dollar</option>
                         <option value="NZD">NZD - New Zealand Dollar</option>
                         <option value="NIO">NIO - Nicaraguan CÃ³rdoba</option>
@@ -342,7 +342,9 @@ swal({
                         <option value="OMR">OMR - Omani Rial</option>
                         <option value="PKR">PKR - Pakistani Rupee</option>
                         <option value="PAB">PAB - Panamanian Balboa</option>
-                        <option value="PGK">PGK - Papua New Guinean Kina</option>
+                        <option value="PGK">
+                          PGK - Papua New Guinean Kina
+                        </option>
                         <option value="PYG">PYG - Paraguayan Guarani</option>
                         <option value="PEN">PEN - Peruvian Nuevo Sol</option>
                         <option value="PHP">PHP - Philippine Peso</option>
@@ -359,11 +361,15 @@ swal({
                         <option value="SLL">SLL - Sierra Leonean Leone</option>
                         <option value="SGD">SGD - Singapore Dollar</option>
                         <option value="SKK">SKK - Slovak Koruna</option>
-                        <option value="SBD">SBD - Solomon Islands Dollar</option>
+                        <option value="SBD">
+                          SBD - Solomon Islands Dollar
+                        </option>
                         <option value="SOS">SOS - Somali Shilling</option>
                         <option value="ZAR">ZAR - South African Rand</option>
                         <option value="KRW">KRW - South Korean Won</option>
-                        <option value="XDR">XDR - Special Drawing Rights</option>
+                        <option value="XDR">
+                          XDR - Special Drawing Rights
+                        </option>
                         <option value="LKR">LKR - Sri Lankan Rupee</option>
                         <option value="SHP">SHP - St. Helena Pound</option>
                         <option value="SDG">SDG - Sudanese Pound</option>
@@ -372,18 +378,24 @@ swal({
                         <option value="SEK">SEK - Swedish Krona</option>
                         <option value="CHF">CHF - Swiss Franc</option>
                         <option value="SYP">SYP - Syrian Pound</option>
-                        <option value="STD">STD - São Tomé and Príncipe Dobra</option>
+                        <option value="STD">
+                          STD - São Tomé and Príncipe Dobra
+                        </option>
                         <option value="TJS">TJS - Tajikistani Somoni</option>
                         <option value="TZS">TZS - Tanzanian Shilling</option>
                         <option value="THB">THB - Thai Baht</option>
                         <option value="TOP">TOP - Tongan pa'anga</option>
-                        <option value="TTD">TTD - Trinidad & Tobago Dollar</option>
+                        <option value="TTD">
+                          TTD - Trinidad & Tobago Dollar
+                        </option>
                         <option value="TND">TND - Tunisian Dinar</option>
                         <option value="TRY">TRY - Turkish Lira</option>
                         <option value="TMT">TMT - Turkmenistani Manat</option>
                         <option value="UGX">UGX - Ugandan Shilling</option>
                         <option value="UAH">UAH - Ukrainian Hryvnia</option>
-                        <option value="AED">AED - United Arab Emirates Dirham</option>
+                        <option value="AED">
+                          AED - United Arab Emirates Dirham
+                        </option>
                         <option value="UYU">UYU - Uruguayan Peso</option>
                         <option value="USD">USD - US Dollar</option>
                         <option value="UZS">UZS - Uzbekistan Som</option>
@@ -393,9 +405,7 @@ swal({
                         <option value="YER">YER - Yemeni Rial</option>
                         <option value="ZMK">ZMK - Zambian Kwacha</option>
                       </select>
-
                     </div>
-
 
                     <h6 className="two">Bussiness or Factory Details</h6>
 
