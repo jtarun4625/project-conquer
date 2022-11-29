@@ -4,6 +4,9 @@ import {  doc, setDoc } from "firebase/firestore";
 import swal from "sweetalert";
 import LeftSideBar from "./Component/LeftSideBar";
 import { useGlobalState } from "./state/index";
+import { v4 as uuid } from 'uuid';
+const unique_id = uuid();
+ const newkey = unique_id.replace(/\-/g,"");
 
 function Add() {
 
@@ -16,15 +19,16 @@ function Add() {
     const NumerofCarbonCredit = event.target.NumerofCarbonCredit.value;
 
     event.preventDefault();
-    setDoc(doc(db, "carboncredit", uid), {
+    setDoc(doc(db, "carboncredit", newkey), {
       CertificateAuthority: CertificateName,
       CertificateNumber: CertficateNumber,
       DateofIssue: DateofIssue,
       CertificateFile: CertificateImage,
       NumerofCarbonCredit: NumerofCarbonCredit,
+      uid: uid,
+
     })
       .then((response) => {
-        console.log("aaa", response);
         swal({
           title: "Carbon Credit Registered!",
           text: "Thank for Submit!",

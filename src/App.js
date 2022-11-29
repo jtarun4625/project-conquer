@@ -11,6 +11,7 @@ import Auction from "./Auction";
 import OngoingBid from "./OngoingBid";
 import Wallet from "./Wallet";
 import BasicInformation from "./Basic Information";
+import CarbonList from "./Website/CarbonList";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./Login";
@@ -32,6 +33,8 @@ function App() {
           <Route exact path="/Dashboard" element={<Dashboard />}></Route>
           <Route exact path="/Wallet" element={<Wallet />}></Route>
           <Route exact path="/carboncredit" element={<CarbonCredit />}></Route>
+          <Route exact path="/CarbonList" element={<CarbonList />}></Route>
+
         </Routes>
         <Footer />
       </Router>

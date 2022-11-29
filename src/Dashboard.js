@@ -8,8 +8,6 @@ function Dashboard() {
 
 
   const [uid] = useGlobalState("uid");
-  console.log(uid)
-  console.log(uid);
   const [email, setemail] = useState();
   const [name, setname] = useState();
   const [image, setimage] = useState();
@@ -25,7 +23,6 @@ function Dashboard() {
   const docRef = doc(db, "users", uid);
   getDoc(docRef)
     .then((response) => {
-      console.log("   AAbbbb", response.data())
       setemail(response.data().Email);
       setname(response.data().Name);
       setimage(response.data().Image);

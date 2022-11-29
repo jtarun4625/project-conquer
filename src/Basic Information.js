@@ -8,7 +8,6 @@ import swal from "sweetalert";
 
 function Basicinformation() {
   const [uid] = useGlobalState("uid");
-  console.log(uid);
   const [email, setemail] = useState();
   const [name, setname] = useState();
   const [image, setimage] = useState();
@@ -66,7 +65,6 @@ function Basicinformation() {
       Currency: currency,
     })
       .then((response) => {
-        console.log("aaa", response);
       })
 
       .catch((error) => console.log(error));

@@ -2,16 +2,15 @@ import React from "react";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { db } from "./firebase";
 import { doc, setDoc } from "firebase/firestore";
-import {setGlobalState} from "./state/index"
+import { setGlobalState } from "./state/index"
 import { Link, useNavigate } from 'react-router-dom'
 
-
-function Firebase(auth, provider,navigate) {
+function Firebase(auth, provider, navigate) {
   if (auth.currentUser) {
     // window.location.href = "/userinformation";
     console.log(auth.currentUser);
-    setGlobalState("uid",auth.currentUser.uid)
-    navigate("/Dashboard", { replace: true });
+    setGlobalState("uid", auth.currentUser.uid)
+    navigate("/userinformation", { replace: true });
   } else {
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -22,17 +21,18 @@ function Firebase(auth, provider,navigate) {
         const user = result.user;
         console.log(user);
         console.log(user.displayName, user.email, user.photoURL);
-        setGlobalState("uid",auth.currentUser.uid)
+        setGlobalState("uid", auth.currentUser.uid)
         setDoc(doc(db, "users", auth.currentUser.uid), {
-          name: user.displayName,
-          email: user.email,
-          image: user.photoURL,
+          Name: user.displayName,
+          Email: user.email,
+          Image: user.photoURL,
         })
           .then((response) => {
             console.log("aaa", response);
           })
           .catch((error) => console.log(error));
         // ...
+        navigate("/userinformation", { replace: true });
       })
       .catch((error) => {
         // Handle Errors here.
@@ -53,7 +53,8 @@ function Register() {
 
   return (
     <>
-           <section class="dashboard">
+    <br></br>
+      <section class="dashboard">
         <div class="container">
           <div class="row">
 
@@ -67,12 +68,10 @@ function Register() {
                     <div class="dashboard-inner">
                       <div class="img-1">
                         <img
-                          src="https://img.freepik.com/free-vector/tablet-login-concept-illustration_114360-7963.jpg?w=740&t=st=1669638977~exp=1669639577~hmac=f78f0d282bb61e68af428c4b75e2e91fd0a909c19c285f068c4669e0aa9527f4" className="img-fluid"
+                          src="https://img.freepik.com/free-vector/people-using-mobile-bank-remittance-money_74855-6617.jpg?w=740&t=st=1669638372~exp=1669638972~hmac=7d13d2caeff19fcba9b9689a387cd2f8194820c155f3e35139ebc90759d19f16" className="img-fluid"
                           alt="img"
                         />
                       </div>
-
-                      
                     </div>
                   </div>
                 </div>
@@ -102,7 +101,7 @@ function Register() {
 
                   <div class=" signup login-notif">
                     Already have an Account?{" "}
-                    <span class="show-hide"><Link to="/Register">Sign Up</Link></span>
+                    <span class="show-hide"><Link to="/Login">Sign in</Link></span>
                   </div>
 
                   <div class="login login-notif">
@@ -114,6 +113,7 @@ function Register() {
           </div>
         </div>
       </section>
+      <br></br>
       <br></br>
     </>
   );
