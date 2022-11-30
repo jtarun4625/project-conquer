@@ -1,6 +1,5 @@
 
-import Header from './Component/Header';
-import Footer from './Component/Footer';
+
 import Banner from './Website/Banner';
 import Process from './Website/Process';
 import Service from './Website/Service';
@@ -12,13 +11,10 @@ function Home() {
   return (
     <>
 
-    
      <Banner/>
      <Process/>
      <About/>
      <Service/>
-    
-  
 
     </>
   );

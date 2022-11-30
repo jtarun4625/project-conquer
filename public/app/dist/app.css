@@ -19,6 +19,7 @@
   font-family: 'Poppins', sans-serif;
 }
 
+
 :root {
   --primary: #3772ff;
   --bg: #fff;
@@ -30,6 +31,12 @@
   --line: #e5e5e5;
   --text: #777e90;
   --second: #58bd7d;
+}
+
+
+.card_back{
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-secondary-rgb), var(--bs-bg-opacity)) !important;
 }
 
 .is_dark {
@@ -100,7 +107,7 @@ h5,
 .h5,
 h6,
 .h6 {
-  font-family: "DM Sans";
+
   font-style: normal;
   font-weight: 700;
   line-height: 1.2;
@@ -4843,7 +4850,9 @@ body[data-magic-cursor=hide] .mouse-cursor {
   }
 }
 .user-profile .content-tab .profile form .form-group {
-  margin: 0 -10px 46px;
+
+  margin: 0 -10px 30px;
+
 }
 .user-profile .content-tab .profile form .form-group input {
   width: 50%;
@@ -5021,6 +5030,8 @@ body[data-magic-cursor=hide] .mouse-cursor {
 .user-profile .content-tab .api .main .refe div {
   width: 100%;
   margin: 0 7px;
+
+  border-radius: 10px;
   position: relative;
 }
 .user-profile .content-tab .referrals .main .refe div p,
@@ -5071,10 +5082,13 @@ body[data-magic-cursor=hide] .mouse-cursor {
   margin-right: 5px;
 }
 .user-profile .content-tab .api .main {
-  padding: 28px 32px;
+
+  padding: 8px 12px;
 }
 .user-profile .content-tab .api .main h6 {
+  text-align: left;
   margin-bottom: 11px;
+  color:#fff;
 }
 .user-profile .content-tab .api .main .btn-action {
   margin-top: 28px;
@@ -6642,14 +6656,27 @@ body[data-magic-cursor=hide] .mouse-cursor {
 
 /*# sourceMappingURL=app.css.map */
 .card-img-top1{
-  margin: 22px auto!important;
-    width: 30%!important;
+  margin: 22px auto 4px 180px !important;
+    width: 20%!important;
 }
 .card-custom {
   /* border: none!important; */
   --bs-bg-opacity: 1;
+
+  background-image: url(https://img.freepik.com/free-photo/vivid-blurred-colorful-background_58702-2545.jpg?w=2000);
+  
   /* background-color: rgba(var(--bs-secondary-rgb), var(--bs-bg-opacity)) !important; */
-  background: #f7f7f7;
+  /* background: #f7f7f7; */
+  backdrop-filter: blur(4px);
+  /* box-shadow: 0px 14px 64px 0px rgb(15 15 15 / 1); */
+}
+.card-custom1 {
+  /* border: none!important; */
+  --bs-bg-opacity: 1;
+  background-image: url(https://wallpaperaccess.com/full/1155011.jpg);
+
+  /* background-color: rgba(var(--bs-secondary-rgb), var(--bs-bg-opacity)) !important; */
+  /* background: #f7f7f7; */
   backdrop-filter: blur(4px);
   /* box-shadow: 0px 14px 64px 0px rgb(15 15 15 / 1); */
 }
@@ -6677,7 +6704,8 @@ body[data-magic-cursor=hide] .mouse-cursor {
   position: relative;
   /* margin-top: 20px */
 
-  margin: 20px 118px;
+
+  margin: 0px 20px;
 }
 
 #msform fieldset {
@@ -6777,12 +6805,13 @@ body[data-magic-cursor=hide] .mouse-cursor {
 }
 
 .purple-text {
-  color: #3772ff
+  color: #3772ff;
   font-weight: normal
 }
 
 .steps {
-  font-size: 25px;
+
+  font-size: 15px;
   color: gray;
   margin-bottom: 10px;
   font-weight: normal;
@@ -6864,7 +6893,9 @@ body[data-magic-cursor=hide] .mouse-cursor {
 }
 
 .progress {
-  height: 20px
+
+  height: 6px;
+  border-radius: 5px;
 }
 
 .progress-bar {
@@ -6923,4 +6954,27 @@ body[data-magic-cursor=hide] .mouse-cursor {
 #subs-form{
   margin-top: 0px;
 }
+
 /* end modal css  */
+
+.linkbnav {
+  padding: 13px 22px 3px;
+  max-width: 260px;
+  border-radius: 1000px;
+  margin-bottom: 5px;
+}
+
+/* 
+.active
+{
+  background-color: #3772ff;
+  
+    padding: 13px 22px 3px;
+      border-radius: 1000px;
+      margin-bottom: 5px;
+      width: 100%;
+}
+
+.active .fs-16{
+  color: #fff!important;
+} */

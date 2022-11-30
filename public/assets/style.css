@@ -224,3 +224,21 @@
   margin-left: -1em;
   color: rgb(255, 255, 255);
 }
+.btn-action{
+  border: 0px;
+}
+
+.creditbtn {
+  color: #fff !important;
+}
+
+.pending1{
+  color: red;
+}
+
+.success1{
+  color:green
+}
+.creditbtn{
+  margin-bottom: 20px;
+}

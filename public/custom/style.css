@@ -15,7 +15,10 @@ a
 .dashboard
 {
     position: relative;
+<<<<<<< HEAD
     min-height: 100vh;
+=======
+>>>>>>> baseinformationsetting
     background-color: rgb(255, 255, 255);
     overflow: hidden;
 }
@@ -52,7 +55,10 @@ a
 .dashboard-img
 {
     background-image: url(../images/left-bg.png);
+<<<<<<< HEAD
     min-height: 100vh;
+=======
+>>>>>>> baseinformationsetting
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: top center;
@@ -63,7 +69,11 @@ a
 }
 .dashboard-inner img
 {
+<<<<<<< HEAD
     width: auto;
+=======
+    width: 90%;
+>>>>>>> baseinformationsetting
 } 
 /* .img-1, .img-2, .img-3, .img-4, .img-5, .img-6
 {
@@ -130,7 +140,8 @@ a
       
 }
 .code-div{
-    padding-top:180px;
+
+    padding-top:90px;
 }
 
 /* google button */
@@ -366,4 +377,33 @@ form
 .show-login .login
 {
     display: block;
+
+}
+
+
+.user-profile .actived{
+    background-color: #3772ff;
+        padding: 4px 20px;
+        border-radius: 17px;
+        width: 100%;
+            margin-bottom: 10px;
+}
+
+.user-profile .actived .fs-16{
+        margin-top: 10px;
+    color: #fff!important;
+}
+
+
+.user-profile .actived1 .fs-16 {
+    margin-top: 10px;
+    color: #000 !important;
+}
+
+
+.user-profile .actived1 {
+    background-color: #b6b6b63d;
+    padding: 4px 20px;
+        border-radius: 17px;
+        width: 100%;
 }
