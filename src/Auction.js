@@ -1,7 +1,6 @@
 import React from "react";
 import Table from "./Component/Table";
 import LeftSideBar from "./Component/LeftSideBar";
-import { useGlobalState } from "./state/index";
 export default function Auction() {
   return (
     <>
