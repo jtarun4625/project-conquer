@@ -5044,7 +5044,6 @@ body[data-magic-cursor=hide] .mouse-cursor {
 .user-profile .content-tab .api .main .refe div input {
   padding: 12px 20px;
   font-size: 14px;
-  font-weight: 700;
   border-radius: 12px;
   box-shadow: none;
   outline: none;
@@ -6738,7 +6737,6 @@ body[data-magic-cursor=hide] .mouse-cursor {
   margin-top: 2px;
   width: 100%;
   box-sizing: border-box;
-  font-family: montserrat;
   color: #2C3E50;
   /* background-color: #ECEFF1; */
   font-size: 16px;
@@ -6978,3 +6976,23 @@ body[data-magic-cursor=hide] .mouse-cursor {
 .active .fs-16{
   color: #fff!important;
 } */
+
+
+.btn-primaryauction{
+border-radius: 30px;
+  padding: 6px 36px;
+  margin-bottom: 13px;
+  margin-top: 24px;
+  color: #fff;
+}
+
+.close{
+      border: 0px;
+        padding: 7px;
+        /* border-radius: 75px; */
+        height: 33px;
+        width: 27px;
+        background-color: #3772ff;
+        color: #fff;
+        border-radius: 5px;
+}

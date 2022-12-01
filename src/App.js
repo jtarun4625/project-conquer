@@ -17,6 +17,10 @@ import CarbonList from "./Website/CarbonList";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./Login";
 
+
+window.user = "Nathan";
+
+
 function App() {
   return (
     <>
