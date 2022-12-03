@@ -9,6 +9,7 @@ function Dashboard() {
 
 
   const [uid] = useGlobalState("uid");
+  console.log(uid)
   const [email, setemail] = useState();
   const [name, setname] = useState();
   const [image, setimage] = useState();

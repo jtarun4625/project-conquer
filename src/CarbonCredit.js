@@ -9,6 +9,7 @@ const unique_id = uuid();
  const newkey = unique_id.replace(/\-/g,"");
 
 function Add() {
+  
 
     const [uid] = useGlobalState("uid");
   const handleSubmit = (event) => {
@@ -26,6 +27,7 @@ function Add() {
       CertificateFile: CertificateImage,
       NumerofCarbonCredit: NumerofCarbonCredit,
       uid: uid,
+      Approved:"0"
 
     })
       .then((response) => {

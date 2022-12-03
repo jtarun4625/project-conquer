@@ -28,6 +28,9 @@ function Firebase(auth, provider, navigate) {
           Name: user.displayName,
           Email: user.email,
           Image: user.photoURL,
+        CarbonCredit :"100",
+        Currency : "800"
+          
         })
           .then((response) => {
             console.log("aaa", response);

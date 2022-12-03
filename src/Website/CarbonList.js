@@ -16,23 +16,28 @@ import Table from "../Component/Table";
 export default function CarbonList() {
   const [uid] = useGlobalState("uid");
   const [State, setState  ] = useState([]);
+   const [data, setData] = useState([]);
 
 
-  // const Approved = state.Approved;
-  // const CertificateNumber = state.CertificateNumber;
-  // const CertificateAuthority = state.CertificateAuthority;
-  // const DateofIssue = state.DateofIssue;
-  // const NumerofCarbonCredit = state.NumerofCarbonCredit;
-
-  useEffect(() => {
-  const docRef = query(collection(db, "carboncredit"),where("uid", "==", uid));
+   useEffect(() => {
+    const donorsData = [];
+  const docRef = query(collection(db, "carboncredit"), where("uid", "==", uid));
   getDocs(docRef).then((response) => {
     response.forEach((doc) => {
-      State.push((doc.data()));
+      donorsData.push(doc.data());
     });
+     setData(donorsData);
   });
-  }, [""]);
-console.log("aa",State)
+      // {
+      //   results.forEach((snapshot) => {
+      //     donorsData.push(snapshot.val());
+      //   });
+        // setData(donorsData);
+      });
+  // }, []);
+
+
+
   return (
 
   
@@ -80,6 +85,8 @@ console.log("aa",State)
                         <th scope="col">Certificate Authority</th>
                         <th scope="col">Date of Issue</th>
                         <th scope="col">Carbon Credit</th>
+                        <th scope="col">Status</th>
+
 
        
      
@@ -87,9 +94,9 @@ console.log("aa",State)
                       </tr>
                     </thead>
                     <tbody>
-
-                                         {State.map((user,i) => (  <tr>
-                        <th scope="row"> </th>
+                  
+                      {data.map((user,i) => (  <tr>
+                         <td>{i+1}</td>
                         <td> {user.CertificateNumber}</td>
                         <td>{user.CertificateAuthority}</td>
                         <td>{user.DateofIssue}</td>
