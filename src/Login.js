@@ -102,7 +102,7 @@ function Login() {
 
                   <div class=" signup login-notif">
                     Already have an Account?{" "}
-                    <span class="show-hide"><Link to="/Login">Sign in</Link></span>
+                    <span class="show-hide"><Link to="/Administrator">Sign in</Link></span>
                   </div>
 
                   <div class="login login-notif">

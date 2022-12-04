@@ -19,10 +19,9 @@ const newkey = unique_id.replace(/\-/g, "");
 export default function Auction() {
 
    const [data, setData] = useState([]);
-
   useEffect(() => {
     const donorsData = [];
-  const docRef = query(collection(db, "auctions"), where("UserId", "==", uid));
+  const docRef = query(collection(db, "auctions"), where("UserId", "==", "5t4LdnrfATO9ArBWchBjd47vSUE3"));
   getDocs(docRef).then((response) => {
     response.forEach((doc) => {
       donorsData.push(doc.data());

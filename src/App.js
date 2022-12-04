@@ -13,7 +13,7 @@ import OngoingBid from "./OngoingBid";
 import Wallet from "./Wallet";
 import BasicInformation from "./Basic Information";
 import CarbonList from "./Website/CarbonList";
-
+import Administrator from "./Administrator";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./Login";
 
@@ -27,7 +27,8 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route exact path="/Login" element={<Login />}></Route>
+          <Route exact path="/Administrator" element={<Administrator />}></Route>
+            <Route exact path="/Login" element={<Login />}></Route>
           <Route exact path="/OngoingBid" element={<OngoingBid />}></Route>
           <Route exact path="/Userinformation" element={<BasicInformation />}></Route>
           <Route exact path="/" element={<Home />}></Route>
