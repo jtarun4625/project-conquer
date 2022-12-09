@@ -17,23 +17,24 @@ export default function CarbonList() {
   const [uid] = useGlobalState("uid");
   const [State, setState  ] = useState([]);
    const [data, setData] = useState([]);
+   const donorsData = [];
 
 
    useEffect(() => {
-    const donorsData = [];
-  const docRef = query(collection(db, "carboncredit"), where("uid", "==", uid));
-  getDocs(docRef).then((response) => {
-    response.forEach((doc) => {
-      donorsData.push(doc.data());
+    const docRef = query(collection(db, "carboncredit"), where("uid", "==", uid));
+    getDocs(docRef).then((response) => {
+      response.forEach((doc) => {
+        donorsData.push(doc.data());
+      });
+       setData(donorsData);
     });
-     setData(donorsData);
-  });
+
       // {
       //   results.forEach((snapshot) => {
       //     donorsData.push(snapshot.val());
       //   });
         // setData(donorsData);
-      });
+      },[]);
   // }, []);
 
 

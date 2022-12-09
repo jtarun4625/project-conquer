@@ -3,14 +3,14 @@ import React from "react";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { db } from "./firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { setGlobalState } from "./state/index"
+import { setState } from "./state/index"
 import { Link, useNavigate } from 'react-router-dom'
 
 function Firebase(auth, provider, navigate) {
   if (auth.currentUser) {
     // window.location.href = "/userinformation";
     console.log(auth.currentUser);
-    setGlobalState("uid", auth.currentUser.uid)
+    setState("uid", auth.currentUser.uid)
     navigate("/userinformation", { replace: true });
   } else {
     signInWithPopup(auth, provider)
@@ -22,7 +22,7 @@ function Firebase(auth, provider, navigate) {
         const user = result.user;
         console.log(user);
         console.log(user.displayName, user.email, user.photoURL);
-        setGlobalState("uid", auth.currentUser.uid)
+        setState("uid", auth.currentUser.uid)
         setDoc(doc(db, "users", auth.currentUser.uid), {
           Name: user.displayName,
           Email: user.email,

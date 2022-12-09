@@ -19,22 +19,18 @@ const newkey = unique_id.replace(/\-/g, "");
 export default function OngingBid() {
 
    const [data, setData] = useState([]);
+   const donorsData = [];
 
   useEffect(() => {
-    const donorsData = [];
-  const docRef = query(collection(db, "auctions"));
-  getDocs(docRef).then((response) => {
-    response.forEach((doc) => {
-      donorsData.push(doc.data());
-    });
-     setData(donorsData);
-  });
-      // {
-      //   results.forEach((snapshot) => {
-      //     donorsData.push(snapshot.val());
-      //   });
-        // setData(donorsData);
+
+    const docRef = query(collection(db, "auctions"));
+    getDocs(docRef).then((response) => {
+      response.forEach((doc) => {
+        donorsData.push(doc.data());
       });
+       setData(donorsData);
+    });
+      },[]);
   // }, []);
 
 

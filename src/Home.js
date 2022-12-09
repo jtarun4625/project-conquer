@@ -13,8 +13,7 @@ function Home() {
 
      <Banner/>
      <Process/>
-     <About/>
-     <Service/>
+
 
     </>
   );

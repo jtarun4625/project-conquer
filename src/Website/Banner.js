@@ -12,13 +12,11 @@ function Banner() {
           <div class="col-xl-6 col-md-12">
             <div class="banner__content">
               <h2 class="title">
-                A trusted and secure cryptocurrency exchange.
+                A trusted and secure carbon credit trading platform
               </h2>
               <p class="fs-20 desc">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                We are commited to provide the carbon offsetting solutions for all fo our clients
               </p>
-              <a href="#" class="btn-action"><span>Trading Now</span></a>
             </div>
           </div>
           <div class="col-xl-6 col-md-12">

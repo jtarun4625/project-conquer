@@ -5,7 +5,7 @@ function About() {
   return (
     <>
   
-  <section class="trading">
+  {/* <section class="trading">
       <div class="container">
         <div class="row">
           <div class="col-xl-6 col-md-12">
@@ -64,7 +64,7 @@ function About() {
           </div>
         </div>
       </div>
-    </section>
+    </section> */}
     </>
   );
 }

@@ -13,8 +13,7 @@ function Process() {
       <div class="block-text center">
         <h3 class="heading">How It Work</h3>
         <p class="fs-20 desc">
-          Stacks is a production-ready library of stackable content blocks
-          built in React Native.
+          Add Your Carbon Credits on Our Portal.
         </p>
       </div>
 
@@ -25,10 +24,9 @@ function Process() {
           </div>
           <div class="content">
             <p class="step">Step 1</p>
-            <a href="#" class="title">Download</a>
+            <a href="#" class="title">Upload</a>
             <p class="text">
-              Stacks is a production-ready library of stackable content
-              blocks built in React Native.
+             Uploading & Thorough Verification will be done by our team
             </p>
           </div>
           <img
@@ -43,10 +41,9 @@ function Process() {
           </div>
           <div class="content">
             <p class="step">Step 2</p>
-            <a href="#" class="title">Connect wallet</a>
+            <a href="#" class="title">Manage Auctions</a>
             <p class="text">
-              Stacks is a production-ready library of stackable content
-              blocks built in React Native.
+              Once Carbon Credits Added you can create auctions
             </p>
           </div>
           <img
@@ -61,10 +58,9 @@ function Process() {
           </div>
           <div class="content">
             <p class="step">Step 3</p>
-            <a href="#" class="title">Start trading</a>
+            <a href="#" class="title">Manage Bidding</a>
             <p class="text">
-              Stacks is a production-ready library of stackable content
-              blocks built in React Native.
+              Bidding on auction is done, funds are secure in Rapyd Escrow
             </p>
           </div>
           <img
@@ -79,10 +75,9 @@ function Process() {
           </div>
           <div class="content">
             <p class="step">Step 4</p>
-            <a href="#" class="title">Earn money</a>
+            <a href="#" class="title">Funds Transfer</a>
             <p class="text">
-              Stacks is a production-ready library of stackable content
-              blocks built in React Native.
+              Once Bidding is finalised escrow will be released in your wallet.
             </p>
           </div>
         </div>

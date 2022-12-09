@@ -6,7 +6,10 @@ import {
     Link
   } from "react-router-dom";
 
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 function Header() {
+  const auth = getAuth();
+
   return (
     <>
          <header id="header_main" className="header">
@@ -48,17 +51,12 @@ function Header() {
                         <Link to="/">Home</Link>
                       </li>
                       
-                      <li className="menu-item">
-                        {/* <a href="markets.html">About Us</a> */}
-                        <Link to="/About_us">About Us</Link>
-                      </li>
+
                       <li className="menu-item-has-children">
                         {/* <a href="#">Register</a> */}
                         <Link to="/Register">Register</Link>
                       </li>
-                      <li className="menu-item-has-children">
-                        <a href="#">Result</a>
-                      </li>
+
                       <li className="menu-item-has-children">
                         {/* <a href="#">Contact Us</a> */}
                         <Link to="/Dashboard">Dashboard</Link>
@@ -67,10 +65,7 @@ function Header() {
                         {/* <a href="#">Contact Us</a> */}
                         <Link to="/Administrator">Administrator</Link>
                       </li>
-                      <li className="menu-item-has-children">
-                        {/* <a href="#">Contact Us</a> */}
-                        <Link to="/Contact">Contact Us</Link>
-                      </li>
+
                    
 
                   
@@ -473,7 +468,11 @@ function Header() {
                 </div>
                 <div className="mobile-button"><span></span></div>
                 <div className="wallet">
-                  <a href="wallet.html"> Wallet </a>
+                  <a href="#" onClick={() => {
+                    auth.signOut().then(()=>{
+                      window.location.href="https://mvp--login.web.app"
+                    })
+                  }}> Logout </a>
                 </div>
                 <div className="dropdown user">
                   <button
