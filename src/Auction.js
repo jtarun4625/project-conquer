@@ -3,6 +3,7 @@ import { db } from "./firebase";
 import LeftSideBar from "./Component/LeftSideBar";
 import { v4 as uuid } from "uuid";
 import { useGlobalState } from "./state/index";
+import axios from 'axios';
 import {
   collection,
   doc,
@@ -14,26 +15,31 @@ import {
 import swal from "sweetalert";
 
 const unique_id = uuid();
-const newkey = unique_id.replace(/\-/g, "");
+
 
 export default function Auction() {
 
-   const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
+  const [bidsData, setBidData] = useState([]);
+
+  useEffect(()=>{
+
+  },[bidsData])
   useEffect(() => {
     const donorsData = [];
-  const docRef = query(collection(db, "auctions"), where("UserId", "==", "5t4LdnrfATO9ArBWchBjd47vSUE3"));
-  getDocs(docRef).then((response) => {
-    response.forEach((doc) => {
-      donorsData.push(doc.data());
-    });
-     setData(donorsData);
-  });
-      // {
-      //   results.forEach((snapshot) => {
-      //     donorsData.push(snapshot.val());
-      //   });
-        // setData(donorsData);
+    const docRef = query(collection(db, "auctions"), where("UserId", "==", uid));
+    getDocs(docRef).then((response) => {
+      response.forEach((doc) => {
+        var data = doc.data()
+        data["id"] = doc.id
+        donorsData.push(data);
       });
+       setData(donorsData);
+    });
+
+
+
+  },[]);
   // }, []);
 
 
@@ -41,34 +47,105 @@ export default function Auction() {
   
   const [uid] = useGlobalState("uid");
   const [State, setState] = useState([]);
+  const [idToken] = useGlobalState("idToken");
+  const [isLoading, setLoading] = useState(false);
 
   
+  function handlePopUp(val) {
+    var bidData = []
+    const bidRef = query(collection(db, "bid"), where("auction", "==", val.id),where("paymentReceived", "==", 1));
+    getDocs(bidRef).then((response) => {
+      response.forEach((doc) => {
+        var data = doc.data()
+        data["id"] = doc.id
+        bidData.push(data);
+      });
+      console.log(bidData)
+       setBidData(bidData);
+       console.log(bidsData)
+    });
+  }
 
+  function acceptBid(val){
+    var config = {
+      method: 'post',
+      url: 'http://localhost:5002/acceptBid',
+      headers: { 
+        'Authorization': 'Bearer ' + idToken, 
+        'Content-Type': 'application/json'
+      },
+      withCredentials: false,
+      data : val
+    };
+
+    console.log(config)
+
+    axios(config)
+    .then((response) => {
+      if(response.data.error == false){
+        swal({
+          title: "Bid Accepted!",
+          text: "Thank for Submit!",
+          icon: "success",
+          button: "Ok!",
+        });
+      }else{
+        swal({
+          title: "Error",
+          text: "There is some error",
+          icon: "error",
+          button: "Ok!",
+        });
+      }
+    }).catch((error) => console.log(error));
+  }
   const handleSubmit = (event) => {
     alert("hkhk");
+    var newkey = uuid();
     const carboncredit = event.target.carboncredit.value;
     const endDate = event.target.endDate.value;
     const startBid = event.target.startBid.value;
     const startDate = event.target.startDate.value;
 
     event.preventDefault();
-    setDoc(doc(db, "auctions", newkey), {
-      CarbonCredit: carboncredit,
-      StartBid: startBid,
-      StartDate: startDate,
-      EndDate: endDate,
-      UserId: uid,
-    })
-      .then((response) => {
+
+    var config = {
+      method: 'post',
+      url: 'http://localhost:5002/addNewAuction',
+      headers: { 
+        'Authorization': 'Bearer ' + idToken, 
+        'Content-Type': 'application/json'
+      },
+      withCredentials: false,
+      data : {
+        CarbonCredit: carboncredit,
+        StartBid: startBid,
+        StartDate: startDate,
+        EndDate: endDate,
+        UserId: uid,
+      }
+    };
+
+    console.log(config)
+
+    axios(config)
+    .then((response) => {
+      if(response.data.error == false){
         swal({
           title: "Auction  Added!",
           text: "Thank for Submit!",
           icon: "success",
           button: "Ok!",
         });
-      })
-
-      .catch((error) => console.log(error));
+      }else{
+        swal({
+          title: "Not Enough Carbon Credits",
+          text: "Please add carbon credits first ?",
+          icon: "error",
+          button: "Ok!",
+        });
+      }
+    }).catch((error) => console.log(error));
   };
 
   return (
@@ -116,10 +193,13 @@ export default function Auction() {
                     <thead>
                       <tr>
                         <th scope="col">SI No.</th>
+
+                        <th scope="col">Auction Id</th>
                         <th scope="col">CarbonCredit</th>
                         <th scope="col">StartBid</th>
                         <th scope="col">StartDate</th>
                         <th scope="col">EndDate</th>
+                        <th scope="col">View Bids</th>
 
                         {/* <th scope="col">{doc.data().NumerofCarbonCredit}</th> */}
                       </tr>
@@ -128,10 +208,23 @@ export default function Auction() {
                       {data.map((user, i) => (
                         <tr>
                           <td>{i+1}</td>
+                          <td>{user.id}</td>
                           <td>{user.CarbonCredit} </td>
                           <td> {user.StartBid}</td>
                           <td> {user.StartDate}</td>
                           <td> {user.EndDate}</td>
+                          <td>
+                          <button
+                            type="button"
+                            class="btn btn-primary btn-action"
+                            data-toggle="modal"
+                            style={{"padding":"8px","color":"white"}}
+                            data-target="#BidsModal"
+                            onClick={() => handlePopUp(user)}
+                            >
+                             View Bids
+                            </button>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -142,6 +235,57 @@ export default function Auction() {
           </div>
         </div>
       </section>
+      <div
+        class="modal fade"
+        id="BidsModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="BidsModal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title" id="BidsModal">
+                Auction Add
+              </h6>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>
+                      Bid Amount
+                    </th>
+                    <th>
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                {bidsData.map((val, key) => {
+                  return(<tr>
+                    <td>
+                    {val.body.Currency} {val.LocalCurrency}
+                  </td>
+                  <td><button className="btn btn-primary" style={{"color":"white"}} onClick={() => acceptBid(val)}>Accept Bid</button></td>
+                  </tr>)
+                })}
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
       <div
         class="modal fade"
         id="exampleModalCenter"

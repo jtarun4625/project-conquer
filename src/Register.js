@@ -2,16 +2,19 @@ import React from "react";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { db } from "./firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { setGlobalState } from "./state/index"
-import { Link, useNavigate } from 'react-router-dom'
+import {setState} from "./state/index"
+import { useNavigate } from 'react-router-dom'
 
-function Firebase(auth, provider, navigate) {
+function Firebase(auth, provider,navigate) {
+  alert("test");
   if (auth.currentUser) {
-    // window.location.href = "/userinformation";
     console.log(auth.currentUser);
-    setGlobalState("uid", auth.currentUser.uid)
-
-    navigate("/userinformation", { replace: true });
+    auth.currentUser.getIdToken(auth.currentUser).then((token)=>{
+      console.log(token)
+      navigate("/mainProfile", { replace: true });
+      setState("uid",auth.currentUser.uid)
+      setState("idToken",token)
+    })
   } else {
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -22,22 +25,24 @@ function Firebase(auth, provider, navigate) {
         const user = result.user;
         console.log(user);
         console.log(user.displayName, user.email, user.photoURL);
-
-        setGlobalState("uid", auth.currentUser.uid)
+        auth.currentUser.getIdToken((response) => {
+          console.log(response)
+        })
+        setState("uid",auth.currentUser.uid)
         setDoc(doc(db, "users", auth.currentUser.uid), {
-          Name: user.displayName,
-          Email: user.email,
-          Image: user.photoURL,
-        CarbonCredit :"100",
-        Currency : "800"
-          
+          name: user.displayName,
+          email: user.email,
+          image: user.photoURL,
+          totaBids:0,
+          walletAmount:0
         })
           .then((response) => {
+            navigate("/mainProfile", { replace: true });
+
             console.log("aaa", response);
           })
           .catch((error) => console.log(error));
-  
-        navigate("/userinformation", { replace: true });
+        // ...
       })
       .catch((error) => {
         // Handle Errors here.
@@ -58,14 +63,9 @@ function Register() {
 
   return (
     <>
-    <br></br>
       <section class="dashboard">
         <div class="container">
           <div class="row">
-
-          <br></br>
-          <br></br>
-
             <div class="col-md-6 col-sm-12 tab-100">
               <div class="dashboard-img">
                 <div class="container">
@@ -73,13 +73,29 @@ function Register() {
                     <div class="dashboard-inner">
                       <div class="img-1">
                         <img
-
-                          src="https://img.freepik.com/free-vector/people-using-mobile-bank-remittance-money_74855-6617.jpg?w=740&t=st=1669638372~exp=1669638972~hmac=7d13d2caeff19fcba9b9689a387cd2f8194820c155f3e35139ebc90759d19f16" className="img-fluid"
+                          src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/left%20imgs/1-img.png"
                           alt="img"
                         />
                       </div>
 
-                      
+                      <div class="animation-delay-75ms pop  img-4">
+                        <img
+                          src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/left%20imgs/3-img.png"
+                          alt="img"
+                        />
+                      </div>
+                      <div class="animation-delay-100ms pop img-5">
+                        <img
+                          src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/left%20imgs/5-img.png"
+                          alt="img"
+                        />
+                      </div>
+                      <div class="animation-delay-125ms pop img-6">
+                        <img
+                          src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/left%20imgs/4-img.png"
+                          alt="img"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -98,7 +114,7 @@ function Register() {
                     <p>Login to see your Growth and get consulting support!</p>
                   </div>
                   <div class="google-signup">
-                    <button onClick={() => Firebase(auth, provider, navigate)}>
+                    <button onClick={() => Firebase(auth, provider,navigate)}>
                       <img
                         src="https://templates.seekviral.com/rifmanew/forms/LoginSignup%20Form/assets/images/google.png"
                         alt="google-signup"
@@ -109,8 +125,7 @@ function Register() {
 
                   <div class=" signup login-notif">
                     Already have an Account?{" "}
-
-                    <span class="show-hide"><Link to="/Login">Sign in</Link></span>
+                    <span class="show-hide">Sign in</span>
                   </div>
 
                   <div class="login login-notif">
@@ -122,10 +137,6 @@ function Register() {
           </div>
         </div>
       </section>
-
-      <br></br>
-      <br></br>
-
     </>
   );
 }
